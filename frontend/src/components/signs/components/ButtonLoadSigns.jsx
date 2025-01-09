@@ -1,14 +1,19 @@
-import React from "react";
-import { Button, Input, Space, Table, Tag, Modal } from "antd";
+import React, { useState } from "react";
+import { Button } from "antd";
 import api from './../../../axios_config'
 
 const ButtonLoadSigns = ({ lpuId, setSigns }) => {
+    const [loading, setLoading] = useState(false)
+
     const loadData = async () => {
+        setLoading(true)
         try {
             const response = await api.get(`/${lpuId}/signs`)
             setSigns(response.data.data)
         } catch (error) {
             alert(error.response.data.detail)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -17,7 +22,7 @@ const ButtonLoadSigns = ({ lpuId, setSigns }) => {
     }
 
     return (
-        <Button className="default_button" onClick={handleClick}>Загрузить данные</Button>
+        <Button className="default_button" onClick={handleClick} loading={ loading }>Загрузить данные</Button>
     )
 }
 

@@ -4,13 +4,19 @@ import { Button, Input, Space, Table, Tag, Modal } from "antd";
 import { createStyles } from 'antd-style'
 
 
-const SignsTable = ( {signs} ) => {
-  console.log(signs)
+const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
 
-  function handleNameClick(snils, lpu_id, sha) {
-    console.log("here")
+  function handleNameClick(lpu_id, name, snils, sha) {
+    const activeSign = {
+      lpu_id: lpu_id,
+      name: name,
+      snils: snils,
+      sha: sha
+    }    
+    setActiveSign(activeSign)
+    setModalOpen(true)
   }
 
   const searchInput = useRef(null);
@@ -139,7 +145,7 @@ const SignsTable = ( {signs} ) => {
       key: "name",
       width: "30%",
       render: (_, { name, snils, lpu_id, sha }) => {
-        return <a onClick={() => handleNameClick(snils, lpu_id, sha)}>{name}</a>;
+        return <a onClick={() => handleNameClick(lpu_id, name, snils, sha)}>{name}</a>;
       },
       ...getColumnSearchProps("name"),
     },
