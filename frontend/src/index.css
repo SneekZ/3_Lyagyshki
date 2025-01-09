@@ -5,7 +5,7 @@
 
     color-scheme: dark;
 
-    --primary-bg: #2a2b32; /* Фон страницы */
+    --primary-bg: #121212; /* Фон страницы */
     --secondary-bg: #343541; /* Вторичный фон */
     --primary-text: #f1f5fb; /* Основной текст */
     --secondary-text: #9ca3af; /* Вторичный текст */
@@ -19,14 +19,15 @@ html, body {
     padding: 0; /* Убираем стандартные внутренние отступы */
     height: 100%; /* Устанавливаем высоту 100% */
     box-sizing: border-box; /* Гарантируем правильный подсчет размеров */
+    display: flex;
+    flex-direction: column;
 }
 
 .header_container {
     display: flex;
     flex-direction: column;
-    height: 13vh;
+    height: 100%;
     background-color: var(--primary-bg);
-    margin-bottom: 2%;
 }
 
 .header {
@@ -36,6 +37,7 @@ html, body {
 .content {
     flex: 1; /* Эта часть будет занимать оставшееся пространство */
     overflow: auto; /* Добавьте, если нужно скроллирование внутри */
+    border-radius: 20px;
 }
 
 .footer {
@@ -70,18 +72,16 @@ html, body {
     margin-left: 2%;
     margin-right: 2%;
     padding: 0;
+    height: 100%;
 }
 
 .row_selector{
-    height: 100%;
     width: 100%;
-    margin-bottom: 1%;
     flex: 0.2;
 }
 
 .row_table{
     height: 100%;
     width: 100%;
-    margin-bottom: 1%;
     flex: 0.8;
 }

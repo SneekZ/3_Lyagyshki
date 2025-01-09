@@ -9,7 +9,6 @@ function App() {
   } = theme.useToken();
 
   return (
-    <div >
     <Layout className="header_container">
     <Header
           className="header"
@@ -35,8 +34,6 @@ function App() {
           <Router/>
         </Content>
       </Layout>
-    {/* <Router/> */}
-    </div>
   )
 }
 

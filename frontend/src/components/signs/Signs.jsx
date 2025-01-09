@@ -11,11 +11,11 @@ const Signs = () => {
 
     return (
         <Flex className="main_app_container" vertical={true}>
-            <Flex className="row_selector" gap="middle" wrap>
+            <Flex className="row_selector" gap="middle">
                 <LpuSelector lpuId={lpuId} setLpuId={setLpuId}/>
                 <ButtonLoadSigns lpuId={lpuId} setSigns={setSigns}/>
             </Flex>
-            <Flex class_name="row_table" wrap>
+            <Flex class_name="row_table">
                 <SignsTable className="row_table" signs={signs}/>
             </Flex>
         </Flex>

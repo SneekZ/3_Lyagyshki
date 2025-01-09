@@ -5,10 +5,12 @@ import { createStyles } from 'antd-style'
 
 
 const SignsTable = ( {signs} ) => {
+  console.log(signs)
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
 
   function handleNameClick(snils, lpu_id, sha) {
+    console.log("here")
   }
 
   const searchInput = useRef(null);

@@ -6,7 +6,7 @@ const ButtonLoadSigns = ({ lpuId, setSigns }) => {
     const loadData = async () => {
         try {
             const response = await api.get(`/${lpuId}/signs`)
-            setSigns(response.data)
+            setSigns(response.data.data)
         } catch (error) {
             alert(error.response.data.detail)
         }
