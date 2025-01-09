@@ -1,0 +1,20 @@
+2024-12-25 14:25:56,893 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6)
+2024-12-25 14:25:57,202 - paramiko.transport - INFO - Authentication (publickey) failed.
+2024-12-25 14:25:57,253 - paramiko.transport - INFO - Authentication (password) successful!
+2024-12-25 14:25:57,253 - root - INFO - Подключено успешно к СПб ГБУЗ "Городская поликлиника № 17"
+2024-12-25 14:25:57,379 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:25:57,573 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "1"
+2024-12-25 14:25:57,914 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:25:58,086 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "12"
+2024-12-25 14:25:58,417 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:25:58,598 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "123"
+2024-12-25 14:25:58,901 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:25:59,090 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "1234"
+2024-12-25 14:25:59,423 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:25:59,615 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "12345"
+2024-12-25 14:25:59,965 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:26:00,135 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "123456"
+2024-12-25 14:26:00,441 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:26:00,615 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "1234567"
+2024-12-25 14:26:00,924 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:26:01,102 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "12345678"

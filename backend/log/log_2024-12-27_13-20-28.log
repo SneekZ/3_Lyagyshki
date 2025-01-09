@@ -1,0 +1,5 @@
+2024-12-27 13:20:29,364 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.0)
+2024-12-27 13:20:29,981 - paramiko.transport - INFO - Authentication (publickey) failed.
+2024-12-27 13:20:30,128 - paramiko.transport - INFO - Authentication (password) successful!
+2024-12-27 13:20:30,130 - root - INFO - Подключено успешно к ДГП 68
+2024-12-27 13:20:30,289 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/certmgr -list

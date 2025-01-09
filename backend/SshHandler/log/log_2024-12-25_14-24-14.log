@@ -1,0 +1,6 @@
+2024-12-25 14:24:15,055 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6)
+2024-12-25 14:24:15,421 - paramiko.transport - INFO - Authentication (publickey) failed.
+2024-12-25 14:24:15,454 - paramiko.transport - INFO - Authentication (password) successful!
+2024-12-25 14:24:15,454 - root - INFO - Подключено успешно к СПб ГБУЗ "Городская поликлиника № 17"
+2024-12-25 14:24:15,567 - root - INFO - Была выполнена команда touch ./228.pdf
+2024-12-25 14:24:15,872 - root - INFO - Была выполнена команда /opt/cprocsp/bin/amd64/cryptcp -signf -cert -nochain -dn "19964531029" ./228.pdf -pin "12345678"
