@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
+	"sync"
+
 	"time"
 
-	regex "golang-backend/Utils"
+	regex "backend/Utils"
 )
 
 type Sign struct {
@@ -15,7 +18,8 @@ type Sign struct {
 	before time.Time
 	after  time.Time
 	t      string
-	err    string
+	new    bool
+	double bool
 }
 
 func Parse(input string) ([]string, string) {
@@ -28,68 +32,83 @@ func Parse(input string) ([]string, string) {
 
 	input_parts := regex.Splitter.Split(input, 3)
 
-	raw_signs := regex.SplitterSigns.Split(input_parts[1], -1)
+	raw_signs := regex.SplitterSigns.Split(strings.TrimSpace(input_parts[1]), -1)
 
-	ch_in := make(chan string)
-	defer close(ch_in)
+	ch := make(chan *Sign, len(raw_signs))
 
-	ch_out := make(chan *Sign)
-	defer close(ch_out)
+	var wg sync.WaitGroup
 
-	for i := 0; i <= 3; i++ {
-		go ParseSign(ch_in, ch_out)
+	for _, raw_sign := range raw_signs {
+		if len(raw_sign) > 0 {
+			wg.Add(1)
+			go func(raw_sign string) {
+				defer wg.Done()
+				ParseSign(raw_sign, ch)
+			}(raw_sign)
+		}
 	}
 
-	// for _, value := range raw_signs {
-	// 	ch_in <- value
-	// }
-	ch_in <- raw_signs[0]
+	go func() {
+		wg.Wait()
+		close(ch)
+	}()
 
-	sign := <-ch_out
-	fmt.Println(sign)
+	var signs_list = []*Sign{}
+
+	for sign := range ch {
+		signs_list = append(signs_list, sign)
+	}
 
 	return []string{}, ""
 
 }
 
-func ParseSign(ch_in chan string, ch_out chan *Sign) {
-	for unparsed_sign := range ch_in {
-		snils_match, _ := regex.Snils.FindStringMatch(unparsed_sign)
-		var snils string
-		if snils_match == nil {
-			snils = "Обезличена"
-		} else {
-			snils = snils_match.String()
-		}
-		sha := regex.Sha.FindString(unparsed_sign)
-		fmt.Println(sha)
-		sn, _ := regex.Sn.FindStringMatch(unparsed_sign)
-		g, _ := regex.G.FindStringMatch(unparsed_sign)
-		t, _ := regex.T.FindStringMatch(unparsed_sign)
-
-		dates := regex.Date.FindAllString(unparsed_sign, 2)
-		before, _ := time.Parse(regex.TimeLayout, dates[0])
-		after, _ := time.Parse(regex.TimeLayout, dates[1])
-
-		var name string
-		if sn == nil && g == nil {
-			name = "Обезличена"
-		} else {
-			name = sn.String() + " " + g.String()
-		}
-
-		parsed_sign := &Sign{
-			snils: snils,
-			name:  name,
-			// sha:    sha.String(),
-			before: before,
-			after:  after,
-			t:      t.String(),
-		}
-
-		ch_out <- parsed_sign
-		return
+func ParseSign(unparsed_sign string, ch chan *Sign) {
+	snils_match, _ := regex.Snils.FindStringMatch(unparsed_sign)
+	var snils string
+	if snils_match == nil {
+		snils = "Обезличена"
+	} else {
+		snils = snils_match.String()
 	}
+	sha := regex.Sha.FindString(unparsed_sign)
+	sn, _ := regex.Sn.FindStringMatch(unparsed_sign)
+	g, _ := regex.G.FindStringMatch(unparsed_sign)
+	t_match, _ := regex.T.FindStringMatch(unparsed_sign)
+
+	dates := regex.Date.FindAllString(unparsed_sign, 2)
+	before, _ := time.Parse(regex.TimeLayout, dates[0])
+	after, _ := time.Parse(regex.TimeLayout, dates[1])
+
+	var name string
+	if sn == nil && g == nil {
+		name = "Обезличена"
+	} else if sn == nil {
+		name = g.String()
+	} else if g == nil {
+		name = sn.String()
+	} else {
+		name = sn.String() + " " + g.String()
+	}
+
+	var t string
+	if t_match == nil {
+		t = ""
+	} else {
+		t = t_match.String()
+	}
+
+	parsed_sign := &Sign{
+		snils:  snils,
+		name:   name,
+		sha:    sha,
+		before: before,
+		after:  after,
+		t:      t,
+	}
+
+	ch <- parsed_sign
+	// return parsed_sign
 }
 
 func main() {

@@ -33,9 +33,9 @@ func init() {
 	Sn = CompileRegex(`(?<=SN=)\w+`)
 	G = CompileRegex(`(?<=G=)\w+\s\w+`)
 	T = CompileRegex(`(?<=\sT=)[^,]+`)
-	Date = regexp.MustCompile(`\d{2}/\d{2}/\d{4}\s{2}\d{2}:\d{2}:\d{2}\s\w{3}`)
+	Date = regexp.MustCompile(`\d{2}/\d{2}/\d{4}\s*\d{2}:\d{2}:\d{2}\s*\w{3}`)
 
-	Splitter = regexp.MustCompile(`\s={77}\s`)
+	Splitter = regexp.MustCompile(`\s={77}?`)
 	SplitterSigns = regexp.MustCompile(`\s\d+-{7}`)
 
 }
