@@ -108,7 +108,6 @@ func ParseSign(unparsed_sign string, ch chan *Sign) {
 	}
 
 	ch <- parsed_sign
-	// return parsed_sign
 }
 
 func main() {
