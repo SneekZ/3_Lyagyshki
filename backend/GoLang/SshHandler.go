@@ -35,6 +35,9 @@ func NewSshHandler(host, port, user, password string) *SshHandler {
 }
 
 func (sh *SshHandler) Exec(command string) (string, error) {
+	if command == "" {
+		command = "/opt/cprocsp/bin/amd64/certmgr -list"
+	}
 	connection, err := ssh.Dial("tcp", fmt.Sprintf("%s:%s", sh.host, sh.port), sh.config)
 	if err != nil {
 		return "", fmt.Errorf("%w", err)
