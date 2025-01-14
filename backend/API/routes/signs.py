@@ -196,3 +196,57 @@ def delete_sign(lpu_id: int, request: ShaData) -> dict:
     return {
         "data": "OK"
     }
+
+class IdsList(BaseModel):
+    list: list[int | str]
+
+
+@router.get("/{lpu_id}/signs/check/id/list")
+def get_check_sign_by_id_list(lpu_id: int, data: IdsList) -> list[dict]:
+    dh = DatabaseHandler()
+    connection_data, ok = dh.get_lpu(lpu_id)
+    if not ok:
+        raise HTTPException(status_code=400, detail=connection_data)
+
+    try:
+        mh = MariaHandler(connection_data)
+        ssh = SshHandler(connection_data)
+
+        connection_error = ssh.connect()
+        if connection_error:
+            raise HTTPException(status_code=400, detail=connection_error)
+
+    except ConnectionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except KeyError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    result = []
+    for id in data:
+        snils, ok = mh.get_person_snils_by_id(id)
+        if not ok:
+            result.append({
+                "id": id,
+                "result": snils,
+                "password": None
+            })
+            continue
+        password, ok = ssh.check_sign(snils=snils)
+        if not ok:
+            result.append({
+                "id": id,
+                "result": password,
+                "password": None
+            })
+            continue
+        result.append({
+            "id": id,
+            "result": "OK",
+            "password": password
+        })
+    
+    return {
+        "data": result
+    }
