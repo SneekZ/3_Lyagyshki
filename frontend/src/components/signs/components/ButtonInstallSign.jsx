@@ -58,9 +58,9 @@ const ButtonInstallSigns = ({ lpuId }) => {
                 </Button>,
             ]}
             >
+            <p>Результат: {result}</p>
             <p>СНИЛС: {installedSnils}</p>
             <p>SHA1 Отпечаток: {installedSha}</p>
-            <p>Результат: {result}</p>
             <Input placeholder="Имя контейнера" onChange={(e) => {setContainerName(e.target.value)}} allowClear/>
             </Modal>
         </div>

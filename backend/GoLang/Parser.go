@@ -1,8 +1,8 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"os"
 	"strings"
 	"sync"
 
@@ -12,29 +12,30 @@ import (
 )
 
 type Sign struct {
-	snils  string
-	name   string
-	sha    string
-	before time.Time
-	after  time.Time
-	t      string
-	new    bool
-	double bool
+	Snils   string `json:"snils"`
+	Name    string `json:"name"`
+	Sha     string `json:"sha"`
+	before  time.Time
+	after   time.Time
+	T       string `json:"t"`
+	New     bool   `json:"new"`
+	Double  bool   `json:"double"`
+	Expired bool   `json:"expired"`
 }
 
-func Parse(input string) ([]string, string) {
+func Parse(input string) ([]byte, error) {
 	match, err := regex.ErrorCode.FindStringMatch(input)
 	if err != nil {
-		return []string{}, "Код ошибки не был найден"
+		return []byte{}, fmt.Errorf("%w", err)
 	} else if match.String() != "0x00000000" {
-		return []string{}, fmt.Sprintf("Ошибка %s", match.String())
+		return []byte{}, fmt.Errorf("%s", match.String())
 	}
 
 	input_parts := regex.Splitter.Split(input, 3)
 
 	raw_signs := regex.SplitterSigns.Split(strings.TrimSpace(input_parts[1]), -1)
 
-	ch := make(chan *Sign, len(raw_signs))
+	ch := make(chan Sign, len(raw_signs))
 
 	var wg sync.WaitGroup
 
@@ -53,17 +54,52 @@ func Parse(input string) ([]string, string) {
 		close(ch)
 	}()
 
-	var signs_list = []*Sign{}
+	var signs_list = []Sign{}
 
 	for sign := range ch {
 		signs_list = append(signs_list, sign)
 	}
 
-	return []string{}, ""
+	sorted_map := make(map[string][]*Sign)
 
+	for _, value := range signs_list {
+		_, exists := sorted_map[value.Snils]
+		if exists {
+			sorted_map[value.Snils] = append(sorted_map[value.Snils], &value)
+		} else {
+			sorted_map[value.Snils] = []*Sign{&value}
+		}
+	}
+
+	for _, value := range sorted_map {
+		if len(value) == 1 {
+			continue
+		}
+
+		latest := value[0]
+		latest_time := 0
+
+		for _, sign := range value {
+			sign.Double = true
+
+			if sign.after.Second() > latest_time {
+				latest_time = sign.after.Second()
+				latest = sign
+			}
+		}
+
+		latest.New = true
+	}
+
+	jsonData, err := json.Marshal(signs_list)
+	if err != nil {
+		return []byte{}, fmt.Errorf("%s", err)
+	}
+
+	return jsonData, nil
 }
 
-func ParseSign(unparsed_sign string, ch chan *Sign) {
+func ParseSign(unparsed_sign string, ch chan Sign) {
 	snils_match, _ := regex.Snils.FindStringMatch(unparsed_sign)
 	var snils string
 	if snils_match == nil {
@@ -98,20 +134,17 @@ func ParseSign(unparsed_sign string, ch chan *Sign) {
 		t = t_match.String()
 	}
 
-	parsed_sign := &Sign{
-		snils:  snils,
-		name:   name,
-		sha:    sha,
-		before: before,
-		after:  after,
-		t:      t,
+	parsed_sign := Sign{
+		Snils:   snils,
+		Name:    name,
+		Sha:     sha,
+		before:  before,
+		after:   after,
+		T:       t,
+		Double:  false,
+		New:     false,
+		Expired: time.Now().After(after),
 	}
 
 	ch <- parsed_sign
-}
-
-func main() {
-	data, _ := os.ReadFile("signs.txt")
-	match, err := Parse(string(data))
-	fmt.Println(len(match), err)
 }

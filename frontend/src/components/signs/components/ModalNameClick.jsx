@@ -7,6 +7,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
   const [loadingDelete, setLoadingDelete] = useState(false);
 
   const [result, setResult] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleCheck = () => {
     setLoadingCheck(true)
@@ -15,6 +16,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
             const response = await api.get(`/${activeSign.lpu_id}/signs/check/snils/${activeSign.snils}`)
             if (response.data.ok) {
                 setResult("Работает")
+                setPassword(response.data.data)
             } else {
                 setResult(response.data.data)
             }
@@ -48,6 +50,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
 
   const handleClose = () => {
     setResult("")
+    setPassword("")
     setModalOpen(false)
   }
   return (
@@ -71,6 +74,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
         <p>СНИЛС: {activeSign.snils}</p>
         <p>SHA1 Отпечаток: {activeSign.sha}</p>
         <p>Результат: {result}</p>
+        <p>Пароль: {password}</p>
       </Modal>
     </>
   );
