@@ -198,10 +198,10 @@ def delete_sign(lpu_id: int, request: ShaData) -> dict:
     }
 
 class IdsList(BaseModel):
-    list: list[int | str]
+    data: list[int | str]
 
 
-@router.get("/{lpu_id}/signs/check/id/list")
+@router.post("/{lpu_id}/signs/check/id/list")
 def get_check_sign_by_id_list(lpu_id: int, data: IdsList) -> list[dict]:
     dh = DatabaseHandler()
     connection_data, ok = dh.get_lpu(lpu_id)
