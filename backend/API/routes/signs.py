@@ -133,7 +133,37 @@ class ContainerData(BaseModel):
     container_name: str
 
 
-@router.post("/{lpu_id}/signs/install")
+@router.post("/{lpu_id}/signs/install/container")
+def post_install_sign_by_container_name(lpu_id: int, request: ContainerData) -> dict:
+    container_name = request.container_name
+
+    dh = DatabaseHandler()
+    connection_data, ok = dh.get_lpu(lpu_id)
+    if not ok:
+        raise HTTPException(status_code=400, detail=connection_data)
+
+    try:
+        ssh = SshHandler(connection_data)
+
+        connection_error = ssh.connect()
+        if connection_error:
+            raise HTTPException(status_code=400, detail=connection_error)
+
+    except KeyError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    result, ok = ssh.install_sign_by_container_name(container_name)
+    if not ok:
+        raise HTTPException(status_code=400, detail=result)
+
+    return {
+        "snils": result[0],
+        "sha": result[1]
+    }
+
+@router.post("/{lpu_id}/signs/install/name")
 def post_install_sign(lpu_id: int, request: ContainerData) -> dict:
     container_name = request.container_name
 

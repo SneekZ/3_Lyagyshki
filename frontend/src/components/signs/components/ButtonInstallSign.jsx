@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Modal, Input } from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Modal, Input, Switch, Flex } from "antd";
 import api from './../../../axios_config'
 
 const ButtonInstallSigns = ({ lpuId }) => {
@@ -12,18 +12,42 @@ const ButtonInstallSigns = ({ lpuId }) => {
     const [containerName, setContainerName] = useState("")
     const [loading, setLoading] = useState(false)
 
+    const [switched, setSwitched] = useState(false)
+    const [switchText, setSwitchText] = useState("Установка по названию контейнера")
+
+    const [err, setErr] = useState("")
+
+    const onSwitch = (checked) => {
+        setSwitched(checked)
+    }
+
+    useEffect(() => {
+        if (switched) {
+            setSwitchText("Установка по названию подписи")
+        } else {
+            setSwitchText("Установка по названию контейнера")
+        }
+    }, [switched])
+    
     const handleInstall = () => {
         setLoading(true)
         const install = async () => {
             try {
-                const response = await api.post(`/${lpuId}/signs/install`, {
+                const route = switched ? "name" : "container"
+
+                const response = await api.post(`/${lpuId}/signs/install/${route}`, {
                     container_name: containerName
                 })
+
                 setInstalledSnils(response.data.snils)
                 setInstalledSha(response.data.sha)
                 setResult("Успешно установлена")
+                setErr("")
             } catch (error) {
-                alert(error.response.data.detail)
+                setInstalledSha("")
+                setInstalledSnils("")
+                setResult("")
+                setErr(error.response.data.detail)
             } finally {
                 setLoading(false)
             }
@@ -47,7 +71,7 @@ const ButtonInstallSigns = ({ lpuId }) => {
             <Button className="default_button" onClick={handleClick}>Установить подпись</Button>
             <Modal
             open={modalOpen}
-            title="Установка подписи по имени контейнера"
+            title="Установка подписи"
             onCancel={handleClose}
             footer={[
                 <Button type="primary" loading={loading} onClick={handleInstall}>
@@ -61,7 +85,13 @@ const ButtonInstallSigns = ({ lpuId }) => {
             <p>Результат: {result}</p>
             <p>СНИЛС: {installedSnils}</p>
             <p>SHA1 Отпечаток: {installedSha}</p>
-            <Input placeholder="Имя контейнера" onChange={(e) => {setContainerName(e.target.value)}} allowClear/>
+            <p>Ошибка: {err}</p>
+            <Flex gap="middle">
+                <Switch onChange={onSwitch}/>
+                <div>{switchText}</div>
+            </Flex>
+            <br/>
+            <Input placeholder={switchText} onChange={(e) => {setContainerName(e.target.value)}} onPressEnter={handleInstall} allowClear/>
             </Modal>
         </div>
     )

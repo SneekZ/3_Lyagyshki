@@ -190,9 +190,9 @@ class SshHandler:
         else:
             return out, False
 
-    def install_sign(self, folder_name):
+    def install_sign_by_container_name(self, folder_name):
         if not folder_name:
-            return "Название контейнера не моежт быть пустым", False
+            return "Название контейнера не может быть пустым", False
 
         if not re.search(r'\.00.', folder_name):
             folder_name += ".000"
@@ -224,24 +224,8 @@ class SshHandler:
                     key=lambda x: len(x)
                 )
 
-            command = rf"/opt/cprocsp/bin/amd64/certmgr -install -container '\\.\HDIMAGE\{container_name}'"
-            out, ok = self._exec_command(command)
-
-            if not ok:
-                return out, False
-
-            self.parser.parse(out)
-
-            signs = self.parser.get_signs()
-            if not signs:
-                return "Подпись не была установлена или не была выведена после установки", False
-            elif len(signs) > 1:
-                return "Было выведено несколько подписей", False
-
-            snils = signs[0]["snils"]
-            sha = signs[0]["sha"]
-
-            return (snils, sha), True
+            out, err = self.install_sign(container_name) 
+            return out, err
 
         except FileExistsError:
             return "Контейнер не найден", False
@@ -249,6 +233,27 @@ class SshHandler:
             return str(e), False
         finally:
             sftp.close()
+    
+    def install_sign(self, name):
+        command = rf"/opt/cprocsp/bin/amd64/certmgr -install -container '\\.\HDIMAGE\{name}'"
+        out, ok = self._exec_command(command)
+
+        if not ok:
+            return out, False
+
+        self.parser.parse(out)
+
+        signs = self.parser.get_signs()
+        if not signs:
+            return "Подпись не была установлена или не была выведена после установки", False
+        elif len(signs) > 1:
+            return "Было выведено несколько подписей", False
+
+        snils = signs[0]["snils"]
+        sha = signs[0]["sha"]
+
+        return (snils, sha), True
+
 
 
 if __name__ == "__main__":
