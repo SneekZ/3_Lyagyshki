@@ -11,7 +11,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate to="/signs" replace />} />
         <Route path="/signs" element={<Signs />} />
         {/* Маршрут для несуществующих страниц */}
         <Route path="*" element={<NotFound />} />
