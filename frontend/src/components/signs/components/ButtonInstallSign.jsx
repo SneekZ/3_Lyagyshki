@@ -46,7 +46,7 @@ const ButtonInstallSigns = ({ lpuId }) => {
             } catch (error) {
                 setInstalledSha("")
                 setInstalledSnils("")
-                setResult("")
+                setResult("Не удалось установить")
                 setErr(error.response.data.detail)
             } finally {
                 setLoading(false)
