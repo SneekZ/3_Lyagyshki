@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Popconfirm } from 'antd';
 import api from '../../../axios_config';
 
 const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
@@ -8,6 +8,8 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
 
   const [result, setResult] = useState("");
   const [password, setPassword] = useState("");
+
+  const [popupOpen, setPopupOpen] = useState(false)
 
   const handleCheck = () => {
     setLoadingCheck(true)
@@ -31,6 +33,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
 
   const handleDelete = () => {
     setLoadingDelete(true)
+    setPopupOpen(false)
     const del = async () => {
         try {
             const response = await api.delete(`/${activeSign.lpu_id}/signs/delete`, {
@@ -53,6 +56,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
     setPassword("")
     setModalOpen(false)
   }
+
   return (
     <>
       <Modal
@@ -63,9 +67,19 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
             <Button type="primary" loading={loadingCheck} onClick={handleCheck}>
                 Проверить подпись
             </Button>,
-            <Button type="primary" loading={loadingDelete} danger onClick={handleDelete}>
-                Удалить подпись
-            </Button>,
+            <Popconfirm
+              title="Удаление подписи"
+              description="Точно удаляем?"
+              open={popupOpen}
+              onConfirm={handleDelete}
+              onCancel={() => { setPopupOpen(false) }}
+              okText="Да"
+              cancelText="Нет"
+            >
+              <Button type="primary" loading={loadingDelete} danger onClick={() => { setPopupOpen(true) }}>
+                  Удалить подпись
+              </Button>
+            </Popconfirm>,
             <Button type="default" onClick={handleClose}>
                 Назад
             </Button>,
