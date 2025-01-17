@@ -243,10 +243,10 @@ class MariaHandler:
         snils = session.execute(query).first()
         session.close()
 
-        if not snils:
+        if not snils or snils == ('',):
             return f"Врача с id = {person_id} не существует", False
 
-        return snils, True
+        return *snils, True
 
 
     @staticmethod

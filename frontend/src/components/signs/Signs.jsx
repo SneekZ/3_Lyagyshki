@@ -5,6 +5,7 @@ import ButtonLoadSigns from "./components/ButtonLoadSigns";
 import SignsTable from "./components/SignsTable";
 import ModalNameClick from "./components/ModalNameClick";
 import ButtonInstallSigns from "./components/ButtonInstallSign";
+import ButtonCheckSignsById from "./components/ButtonCheckSignsById"
 
 const Signs = () => {
 
@@ -24,6 +25,7 @@ const Signs = () => {
                 <LpuSelector lpuId={lpuId} setLpuId={setLpuId}/>
                 <ButtonLoadSigns lpuId={lpuId} setSigns={setSigns}/>
                 <ButtonInstallSigns lpuId={lpuId}/>
+                <ButtonCheckSignsById lpuId={lpuId}/>
             </Flex>
             <Flex class_name="row_table">
                 <SignsTable signs={signs} setModalOpen={setModalOpen} setActiveSign={setActiveSign}/>
