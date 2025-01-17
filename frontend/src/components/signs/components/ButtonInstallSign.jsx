@@ -73,6 +73,7 @@ const ButtonInstallSigns = ({ lpuId }) => {
             open={modalOpen}
             title="Установка подписи"
             onCancel={handleClose}
+            onPressEnter={handleInstall}
             footer={[
                 <Button type="primary" loading={loading} onClick={handleInstall}>
                     Установить подпись

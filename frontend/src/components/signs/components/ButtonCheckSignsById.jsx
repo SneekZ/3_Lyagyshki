@@ -68,6 +68,7 @@ const ButtonCheckSigns = ({ lpuId }) => {
             open={modalOpen}
             title="Проверка спиcка id"
             onCancel={handleClose}
+            onPressEnter={handleCheck}
             footer={[
                 <Button type="primary" loading={loading} onClick={handleCheck}>
                    Проверить 
