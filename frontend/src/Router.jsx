@@ -14,7 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/signs" replace />} />
         <Route path="/signs" element={<Signs />} />
-        <Route path="/notification" element={<Notification/>} />
+        <Route path="/notification" element={<Notification description="Ошибка хуибка"/>} />
         {/* Маршрут для несуществующих страниц */}
         <Route path="*" element={<NotFound />} />
       </Routes>

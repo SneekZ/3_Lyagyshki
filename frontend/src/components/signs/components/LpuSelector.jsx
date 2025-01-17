@@ -11,7 +11,6 @@ const LpuSelector = ({lpuId, setLpuId}) => {
             const response = await api.get('/lpu')
             return response.data
         } catch (error) {
-            console.log(error)
             alert(error.response.data.detail)
         }
     }

@@ -210,7 +210,7 @@ class MariaHandler:
         encrypted_password = session.execute(query).first()
         session.close()
 
-        if not encrypted_password:
+        if not encrypted_password or encrypt_password != ('', ):
             return f"Врача с СНИЛС = {snils} не существует", False
 
         decrypted_password = decrypt_password(*encrypted_password)
