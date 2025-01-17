@@ -1,18 +1,19 @@
 import React from 'react';
-import { QRCode } from 'antd';
+import { QRCode, Flex } from 'antd';
 import headsetIcon from "./src/headset.png"
 
 const NotFound = () => {
 
   return (
-    <div className="notfound_container">
+    <Flex className="notfound_container" vertical={true} gap="middle">
+      <p>Страница не найдена [404 Error]</p>
       <QRCode
         size={420}
         errorLevel='H'
         value="https://youtu.be/YIBV4AnKKgU?si=y11hD3meD3Ic5qJQ"
         icon={ headsetIcon }
         color="white"/>
-    </div>
+    </Flex>
   );
 };
 
