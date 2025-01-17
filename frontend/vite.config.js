@@ -6,7 +6,7 @@ import tailwindcss from "tailwindcss";
 export default defineConfig({
   server: {
     host: "192.168.0.67",
-    port: 6007,
+    port: 67,
   },
   plugins: [react()],
   css: {
