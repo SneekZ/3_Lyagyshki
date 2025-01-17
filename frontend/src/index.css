@@ -85,3 +85,10 @@ html, body {
     height: 100%;
     flex: 1;
 }
+
+.notfound_container {
+  display: flex;
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center; /* Центрирование по вертикали */
+  height: 100%; 
+}
