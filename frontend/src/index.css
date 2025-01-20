@@ -52,7 +52,7 @@ html, body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: linear-gradient(135deg, #000000, #967580);
+    background: linear-gradient(135deg, #804e16, #c497a6);
     background-size: 200% 200%; 
     animation: wavyGradient 15s infinite alternate ease-in-out;
 }

@@ -17,7 +17,7 @@ const ButtonCheckSigns = ({ lpuId }) => {
 
     const createTextedData = (givenData) => {
         const maxLenght = 40
-        var text = "";
+        var text = "ID\tСНИЛС\n";
         givenData.sort((a, b) => a.id - b.id)
         givenData.forEach(item => {
             text += `${item.id}\t${item.snils}\t${item.result}`.slice(0, maxLenght) + "...\n"
