@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Input, Flex } from "antd"
+import { Button, Modal, Input, Flex, Collapse } from "antd"
 import * as XLSX from "xlsx"
 import api from './../../../axios_config'
 
@@ -12,6 +12,18 @@ const ButtonCheckSigns = ({ lpuId }) => {
     const [data, setData] = useState([{}])
 
     const [result, setResult] = useState("")
+
+    const [textedData, setTextedData] = useState(123)
+
+    const createTextedData = (givenData) => {
+        const maxLenght = 40
+        var text = "";
+        givenData.sort((a, b) => a.id - b.id)
+        givenData.forEach(item => {
+            text += `${item.id}\t${item.snils}\t${item.result}`.slice(0, maxLenght) + "...\n"
+        });
+        return text
+    }
     
     const handleCheck = () => {
         const regex = /\d+/gm
@@ -26,6 +38,9 @@ const ButtonCheckSigns = ({ lpuId }) => {
                 })
                 setData(response.data.data)
                 setResult("Успешно")
+                const td = createTextedData(response.data.data)
+                setTextedData(td)
+                setCollapsed(true)
             } catch (error) {
                 setResult(error.response.data.detail)
             } finally {
@@ -80,9 +95,17 @@ const ButtonCheckSigns = ({ lpuId }) => {
             >
             <Input placeholder="Введите список подписей" onChange={(e) => {setInputText(e.target.value)}} onPressEnter={handleCheck} allowClear/>
             <Flex justify="space-between" align="center">
-                <p>Результат: {result}</p>
+                <p style={{ marginLeft: "3px" }}>Результат: {result}</p>
                 <Button style={{ marginTop: "1%" }} type="default" disabled={(result == "Успешно") ? false : true} onClick={handleDownload}>Скачать</Button>
             </Flex>
+            <Collapse items={[{
+                key: '1',
+                label: 'Быстрый просмотр',
+                children: <pre>{textedData}</pre>
+            }]}
+                collapsible={(result == "Успешно") ? "" : "disabled"}
+                style={{ marginTop: "1%"}}>
+                </Collapse>
             </Modal>
         </div>
     )
