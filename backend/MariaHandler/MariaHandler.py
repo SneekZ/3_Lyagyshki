@@ -205,7 +205,10 @@ class MariaHandler:
         query = select(
             Person.ecp_password,
         ).filter(
-            Person.SNILS == snils
+            Person.SNILS == snils,
+            Person.retired == 0,
+            Person.retireDate == None,
+            Person.deleted == 0
         )
         encrypted_password = session.execute(query).first()
         session.close()
