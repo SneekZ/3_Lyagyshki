@@ -23,21 +23,58 @@ html, body {
     flex-direction: column;
 }
 
+@keyframes wavyGradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
 .header_container {
     display: flex;
     flex-direction: column;
     height: 100%;
     background-color: var(--primary-bg);
+    }
+
+.header_container_pretty {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: linear-gradient(135deg, #000000, #967580);
+    background-size: 200% 200%; 
+    animation: wavyGradient 15s infinite alternate ease-in-out;
 }
 
 .header {
     flex: 1; /* Фиксированная высота (или auto) для заголовка */
+    cursor: pointer;
 }
 
 .content {
     flex: 1; /* Эта часть будет занимать оставшееся пространство */
     overflow: auto; /* Добавьте, если нужно скроллирование внутри */
     border-radius: 20px;
+    background: #2a2b32;
+}
+
+.content_pretty {
+    flex: 1; /* Эта часть будет занимать оставшееся пространство */
+    overflow: auto; /* Добавьте, если нужно скроллирование внутри */
+    border-radius: 20px;
+    background: rgba(200, 200, 200, 0.1);
+    backdrop-filter: blur(1px);
 }
 
 .footer {
@@ -65,8 +102,18 @@ html, body {
     justify-content: center; /* Горизонтальное центрирование */
     align-items: center; /* Вертикальное центрирование */
     color: var(--primary-text);
-    background-color: var(--primary-bg);
 }
+
+.title_pretty {
+    font-size: xx-large;
+    font-family: "Dela Gothic One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center; /* Вертикальное центрирование */
+    color: var(--primary-text);
+ }
 
 .main_app_container {
     /* margin-left: 1%; */
@@ -74,6 +121,7 @@ html, body {
     padding: 0;
     height: 100%;
     flex: 1;
+    max-width: 100%;
 }
 
 .row_selector{
@@ -82,8 +130,10 @@ html, body {
 }
 
 .row_table{
+    max-width: 100%;
     height: 100%;
     flex: 1;
+    table-layout: fixed;
 }
 
 .notfound_container {

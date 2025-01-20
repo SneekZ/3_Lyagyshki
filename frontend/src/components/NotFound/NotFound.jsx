@@ -1,12 +1,14 @@
 import React from 'react';
 import { QRCode, Flex } from 'antd';
 import headsetIcon from "./src/headset.png"
+import { Link } from 'react-router-dom';
 
 const NotFound = () => {
 
   return (
     <Flex className="notfound_container" vertical={true} gap="middle">
-      <p>Страница не найдена [404 Error]</p>
+      <p>СТРАНИЦА НЕ НАЙДЕНА [404]</p>
+      <p>вернуться на <Link to="/signs">главную</Link></p>
       <QRCode
         size={420}
         errorLevel='H'
