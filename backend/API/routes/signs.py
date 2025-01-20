@@ -261,6 +261,7 @@ def get_check_sign_by_id_list(lpu_id: int, request: IdsList) -> dict:
         if not ok:
             result.append({
                 "id": id,
+                "snils": None,
                 "result": snils,
                 "password": None
             })
@@ -269,12 +270,14 @@ def get_check_sign_by_id_list(lpu_id: int, request: IdsList) -> dict:
         if not ok:
             result.append({
                 "id": id,
+                "snils": snils,
                 "result": password,
                 "password": None
             })
             continue
         result.append({
             "id": id,
+            "snils": snils,
             "result": "OK",
             "password": password
         })
