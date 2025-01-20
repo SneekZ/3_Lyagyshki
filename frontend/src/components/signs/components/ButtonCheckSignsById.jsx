@@ -13,7 +13,7 @@ const ButtonCheckSigns = ({ lpuId }) => {
 
     const [result, setResult] = useState("")
 
-    const [textedData, setTextedData] = useState(123)
+    const [textedData, setTextedData] = useState("ID\tСНИЛС\n")
 
     const createTextedData = (givenData) => {
         const maxLenght = 40
