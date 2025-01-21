@@ -73,7 +73,7 @@ html, body {
     flex: 1; /* Эта часть будет занимать оставшееся пространство */
     overflow: auto; /* Добавьте, если нужно скроллирование внутри */
     border-radius: 20px;
-    background: rgba(200, 200, 200, 0.1);
+    background: rgba(200, 200, 200, 0.15);
     backdrop-filter: blur(1px);
 }
 
