@@ -15,6 +15,11 @@ class Parser:
         _RE_AFTER = re.compile(r"(Not valid after|Истекает)\s*:\s*(.*?)(?=\n)", re.DOTALL)
         _RE_T = re.compile(r"(?<=\sT=)[^,]+")
 
+        self._RE_LICENSE_KEY = re.compile(r"(?<=License validity:\n)\w{5}-?\w{5}-?\w{5}-?\w{5}-?\w{5}(?=\n)")
+        self._RE_LICENSE_EXPIRES = re.compile(r"(?<=Expires: )\w+(?=\n)")
+        self._RE_LICENSE_PERMANENT = re.compile(r"license\s*-\s*permanent\n")
+        self._RE_LICENSE_TYPE = re.compile(r"(?<=License type: )\w+(?=\n)")
+
         self._titles = ["snils", "sha", "t", "before", "after"]
         self._regexps = [_RE_SNILS, _RE_SHA, _RE_T, _RE_BEFORE, _RE_AFTER]
 
@@ -127,6 +132,8 @@ class Parser:
             match = re.search(self._RE_ERROR_CODE, text)
             if match:
                 return match.group()
+            
+        return
 
     def get_signs(self, key=""):
         if not key:
@@ -148,6 +155,31 @@ class Parser:
 
     def get_doubles(self):
         return list(sorted(filter(lambda x: x["double"], self._signs), key=lambda x: x["snils"]))
+    
+    def get_license_key(self, text: str) -> str:
+        match = re.search(self._RE_LICENSE_KEY, text)
+        if match:
+            return match.group()
+
+        return
+    
+    def get_license_expires(self, text: str) -> str:
+        match = re.search(self._RE_LICENSE_PERMANENT, text)
+        if match:
+            return "permanent"
+
+        match = re.search(self._RE_LICENSE_EXPIRES, text)
+        if match:
+            return match.group()
+        
+        return
+    
+    def get_license_type(self, text: str) -> str:
+        match = re.search(self._RE_LICENSE_TYPE, text)
+        if match:
+            return match.group()
+
+        return
 
     @staticmethod
     def check_is_error(error_code):

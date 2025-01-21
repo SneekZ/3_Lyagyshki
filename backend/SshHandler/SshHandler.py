@@ -253,7 +253,23 @@ class SshHandler:
         sha = signs[0]["sha"]
 
         return (snils, sha), True
+    
+    def check_license(self):
+        command = "/opt/cprocsp/sbin/amd64/cpconfig -license -view"
+        try:
+            out, _ = self._exec_command(command)
 
+            license_key = self.parser.get_license_key(out) 
+            license_expires = self.parser.get_license_expires(out) 
+            license_type = self.parser.get_license_type(out)
+
+            return {
+                "key": license_key,
+                "expires": license_expires,
+                "type": license_type
+            }, True
+        except Exception as e:
+            return str(e), False
 
 
 if __name__ == "__main__":
