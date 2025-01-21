@@ -17,8 +17,8 @@ class Parser:
 
         self._RE_LICENSE_KEY = re.compile(r"(?<=License validity:\n)\w{5}-?\w{5}-?\w{5}-?\w{5}-?\w{5}(?=\n)")
         self._RE_LICENSE_EXPIRES = re.compile(r"(?<=Expires: )\w+(?=\n)")
-        self._RE_LICENSE_PERMANENT = re.compile(r"license\s*-\s*permanent\n")
-        self._RE_LICENSE_TYPE = re.compile(r"(?<=License type: )\w+(?=\n)")
+        self._RE_LICENSE_PERMANENT = re.compile(r"(?<=\n)license\s*-\s*permanent(?=\n)")
+        self._RE_LICENSE_TYPE = re.compile(r"(?<=License type:)\w+(?=\n)")
 
         self._titles = ["snils", "sha", "t", "before", "after"]
         self._regexps = [_RE_SNILS, _RE_SHA, _RE_T, _RE_BEFORE, _RE_AFTER]
