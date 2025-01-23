@@ -263,23 +263,37 @@ def get_check_sign_by_id_list(lpu_id: int, request: IdsList) -> dict:
                 "id": id,
                 "snils": None,
                 "result": snils,
-                "password": None
+                "realPassword": None,
+                "databasePassword": None
             })
             continue
-        password, ok = ssh.check_sign(snils=snils)
+
+        password, ok = mh.get_person_password_by_id(id)
         if not ok:
             result.append({
                 "id": id,
                 "snils": snils,
                 "result": password,
-                "password": None
+                "realPassword": None,
+                "databasePassword": None
+            })
+
+        check_result, ok = ssh.check_sign(snils=snils, password=password)
+        if not ok:
+            result.append({
+                "id": id,
+                "snils": snils,
+                "result": check_result,
+                "realPassword": None,
+                "databasePassword": password
             })
             continue
         result.append({
             "id": id,
             "snils": snils,
             "result": "OK",
-            "password": password
+            "realPassword": check_result,
+            "databasePassword": password
         })
     
     return {
