@@ -10,7 +10,7 @@ class Parser:
         _RE_SNILS = re.compile(r"(?<=(SNILS|СНИЛС)=)\d+")
         self._RE_SN = re.compile(r"(?<=SN=)\w+")
         self._RE_G = re.compile(r"(?<=G=)\w+\s\w+")
-        _RE_SHA = re.compile(r"SHA1\s(Hash|отпечаток)\s*:\s*(\w*?)(?=\n)")
+        _RE_SHA = re.compile(r"SHA1\s(Hash|отпечаток|Thumbprint)\s*:\s*(\w*?)(?=\n)")
         _RE_BEFORE = re.compile(r"(Not valid before|Выдан)\s*:\s*(.*?)(?=\n)", re.DOTALL)
         _RE_AFTER = re.compile(r"(Not valid after|Истекает)\s*:\s*(.*?)(?=\n)", re.DOTALL)
         _RE_T = re.compile(r"(?<=\sT=)[^,]+")
