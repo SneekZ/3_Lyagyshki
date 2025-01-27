@@ -205,8 +205,8 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
   return (
     <div>
       <br/>
-      <Table className={styles.customTable} columns={columns} dataSource={signs} pagination={{ pageSize: 500 }} scroll={{ 
-        x: 'max-content',
+      <Table className={styles.customTable} columns={columns} dataSource={signs || [{}]} pagination={{ pageSize: 500 }} scroll={{ 
+        x: "max-content",
         y: 55 * 9.55,
        }}/>
     </div>
