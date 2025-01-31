@@ -23,8 +23,14 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
                 setResult(response.data.data)
             }
         } catch (error) {
-            alert(error.response.data.detail)
-        } finally {
+          if (error.response) {
+              showMessage(error.response.data.detail)
+          } else if (error.request) {
+              showMessage("Ошибка сети. Проверьте подключение к интернету")
+          } else {
+              showMessage("Неизвестная ошибка: " + error.message)
+          }
+      } finally {
             setLoadingCheck(false)
         }
     }
@@ -43,8 +49,14 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
             })
             setResult("Подпись удалена успешно")
         } catch (error) {
-            alert(error.response.data.detail)
-        } finally {
+          if (error.response) {
+              showMessage(error.response.data.detail)
+          } else if (error.request) {
+              showMessage("Ошибка сети. Проверьте подключение к интернету")
+          } else {
+              showMessage("Неизвестная ошибка: " + error.message)
+          }
+      } finally {
             setLoadingDelete(false)
         }
     }

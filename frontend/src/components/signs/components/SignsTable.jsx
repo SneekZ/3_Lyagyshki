@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table, Tag, Modal } from "antd";
+import { Button, Input, Space, Table, Tag, ConfigProvider, theme} from "antd";
 import { createStyles } from 'antd-style'
 
 
@@ -205,11 +205,18 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
   return (
     <div>
       <br/>
-      <Table className={styles.customTable} columns={columns} dataSource={signs || [{}]} pagination={{ pageSize: 500 }} scroll={{ 
-        x: "max-content",
-        y: 55 * 9.55,
-       }}
-      />
+      <ConfigProvider
+        theme={{
+          token: {
+          }
+        }}
+      >
+        <Table className={styles.customTable} columns={columns} dataSource={signs || [{}]} pagination={{ pageSize: 500 }} scroll={{ 
+          x: "max-content",
+          y: 55 * 9.55,
+        }}
+        />
+      </ConfigProvider>
     </div>
   );
 };
