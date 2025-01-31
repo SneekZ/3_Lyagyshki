@@ -64,7 +64,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
         title={activeSign.name}
         onCancel={handleClose}
         footer={[
-            <Button type="primary" loading={loadingCheck} onClick={handleCheck}>
+            <Button type="primary" loading={loadingCheck} onClick={handleCheck} disabled={activeSign.snils=="Обезличена" ? true : false}>
                 Проверить подпись
             </Button>,
             <Popconfirm
