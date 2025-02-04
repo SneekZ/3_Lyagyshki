@@ -22,5 +22,5 @@ def encrypt_password(password):
 
 
 if __name__ == "__main__":
-    print(repr(decrypt_password("#1##eJzjMjQ0BAABUgCe")))
+    print(repr(decrypt_password("#1##eNqTMTTmMjQyBgAEQgEh")))
     print(encrypt_password("Oib2017"))
