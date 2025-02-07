@@ -3,6 +3,8 @@ import zlib
 
 
 def decrypt_password(encrypted_password):
+    if encrypted_password is None or encrypted_password == "":
+        return ""
     decoded_data = zlib.decompress(base64.b64decode(encrypted_password[4:]))
     decoded_text = decoded_data.decode('utf-8')
     result = decoded_text.split('\n', 1)[-1]
