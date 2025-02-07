@@ -60,3 +60,22 @@ class SshTransportHandler(SshHandlerBaseClass):
             return "Директория с контейнерами пуста", False
         
         return files, True
+    
+    def load_file(self, local_file_path, unique_filename):
+        if not self._connected:
+            return "Не подключено к sftp", False
+        
+        remote_file_path = self._path + "/" + unique_filename
+
+        try:
+            self._sftp.put(local_file_path, remote_file_path)
+            return (remote_file_path, self._path), True
+        
+        except Exception as e:
+            return f"Ошибка при загрузке файла на сервер: {str(e)}", False
+        
+        finally:
+            self._sftp.close()
+        
+
+        

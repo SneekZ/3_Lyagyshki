@@ -230,6 +230,23 @@ class SshHandler(SshHandlerBaseClass):
         except Exception as e:
             return str(e), False
 
+    def unarchive(self, remote_file_path, remote_path):
+        command = f"unzip -o {remote_file_path} -d {remote_path}"
+        _, stdout, stderr = self._client.exec_command(command)
+        exit_status = stdout.channel.recv_exit_status()
+        if exit_status != 0:
+            error_message = stderr.read().decode()
+            return error_message, False
+        
+        command = f"rm -f {remote_file_path}"
+        _, stdout, stderr = self._client.exec_command(command)
+        exit_status = stdout.channel.recv_exit_status()
+        if exit_status != 0:
+            error_message = stderr.read().decode()
+            return "Не удалось удалить временный архив на удаленном сервере", True
+
+
+        return "OK", True
 
 if __name__ == "__main__":
     from backend.DatabaseHandler.DatabaseHandler import DatabaseHandler

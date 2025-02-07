@@ -130,7 +130,7 @@ const CardGrid = ({ inputData, selectedData, setSelectedData, loading }) => {
             <Input.Search
                 placeholder="Поиск по названию..."
                 allowClear
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value.trim())}
                 style={{ marginBottom: "16px" }}
             />
 
