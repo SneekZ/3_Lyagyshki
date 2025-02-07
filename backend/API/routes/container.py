@@ -103,6 +103,8 @@ def post_install_sign(lpu_id: int, request: ContainerData) -> dict:
 @router.post("/{lpu_id}/container/upload")
 async def post_upload_file_on_server(lpu_id: int, file: UploadFile = File(...)):
     file_extension = os.path.splitext(file.filename)[-1]
+    if file_extension != ".zip":
+        raise HTTPException(status_code=400, detail="Принимаются только zip архивы")
     unique_filename = f"{uuid.uuid4()}{file_extension}"
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
