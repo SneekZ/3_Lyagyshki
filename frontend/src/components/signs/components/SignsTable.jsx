@@ -211,10 +211,17 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
           }
         }}
       >
-        <Table className={styles.customTable} columns={columns} dataSource={signs || [{}]} pagination={{ pageSize: 500 }} scroll={{ 
-          x: "max-content",
-          y: 55 * 9.55,
-        }}
+        <Table
+          className={styles.customTable}
+          columns={columns}
+          dataSource={signs || [{}]}
+          pagination={{ pageSize: 500 }}
+          scroll={{ 
+            x: "max-content",
+            y: 55 * 9.55,
+          }}
+          style={{ maxWidth: "198vh" }}
+          locale={{ emptyText: "Данные не найдены" }}
         />
       </ConfigProvider>
     </div>
