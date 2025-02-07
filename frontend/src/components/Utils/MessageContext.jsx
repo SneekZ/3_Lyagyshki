@@ -7,8 +7,9 @@ export const MessageProvider = ({ children }) => {
     const [messageApi, contextHolder] = message.useMessage();
 
     const showMessage = (content) => {
-        const type = 'error';
-        messageApi.open({ type, content });
+        setTimeout(() => {
+            messageApi.open({ type: 'error', content });
+        }, 0);
     };
 
     return (

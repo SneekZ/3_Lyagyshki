@@ -147,3 +147,31 @@ html, body {
   align-items: center; /* Центрирование по вертикали */
   height: 100%; 
 }
+
+.scroll-container {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+/* Скрытый скроллбар для Chrome/Safari */
+.scroll-container::-webkit-scrollbar {
+    width: 6px; /* Уже делаем тонким */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Полупрозрачный */
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out; /* Плавное появление */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: transparent; /* Фон убираем */
+}
+
+/* Показывать скроллбар только при наведении */
+.scroll-container:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4); /* Чуть ярче при наведении */
+}

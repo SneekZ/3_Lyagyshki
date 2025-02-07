@@ -1,4 +1,5 @@
 import paramiko
+import stat
 from paramiko.ssh_exception import AuthenticationException, SSHException, NoValidConnectionsError
 import logging
 import os
@@ -47,7 +48,10 @@ class SshTransportHandler(SshHandlerBaseClass):
             return "Не подключено к sftp", False
 
         try:
-            files = self._sftp.listdir(self._path)
+            files = []
+            for entry in self._sftp.listdir_attr(self._path):
+                if stat.S_ISDIR(entry.st_mode):
+                    files.append(entry.filename)
 
         except Exception as e:
             return str(e), False

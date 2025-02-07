@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Input, Switch, Flex } from "antd";
+import { Button, Modal, Input, Switch, Flex, Collapse } from "antd";
 import api from './../../../axios_config'
+import { useMessage } from "../../Utils/MessageContext";
+import FolderInstallation from "./ButtonInstallSign/FolderInstallation";
 
 const ButtonInstallSigns = ({ lpuId }) => {
     const [modalOpen, setModalOpen] = useState(false)
@@ -12,30 +14,15 @@ const ButtonInstallSigns = ({ lpuId }) => {
     const [containerName, setContainerName] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const [switched, setSwitched] = useState(false)
-    const [switchText, setSwitchText] = useState("Установка по названию контейнера")
-
     const [err, setErr] = useState("")
 
-    const onSwitch = (checked) => {
-        setSwitched(checked)
-    }
+    const showMessage = useMessage();
 
-    useEffect(() => {
-        if (switched) {
-            setSwitchText("Установка по названию подписи")
-        } else {
-            setSwitchText("Установка по названию контейнера")
-        }
-    }, [switched])
-    
     const handleInstall = () => {
         setLoading(true)
         const install = async () => {
             try {
-                const route = switched ? "name" : "container"
-
-                const response = await api.post(`/${lpuId}/signs/install/${route}`, {
+                const response = await api.post(`/${lpuId}/container/install/name`, {
                     container_name: containerName
                 })
 
@@ -87,12 +74,14 @@ const ButtonInstallSigns = ({ lpuId }) => {
             <p>СНИЛС: {installedSnils}</p>
             <p>SHA1 Отпечаток: {installedSha}</p>
             <p>Ошибка: {err}</p>
-            <Flex gap="middle">
-                <Switch onChange={onSwitch}/>
-                <div>{switchText}</div>
-            </Flex>
-            <br/>
-            <Input placeholder={switchText} onChange={(e) => {setContainerName(e.target.value)}} onPressEnter={handleInstall} allowClear/>
+            <Input
+                placeholder={"Установка по уникальному имени подписи"}
+                onChange={(e) => {setContainerName(e.target.value)}}
+                onPressEnter={handleInstall}
+                style={{ marginBottom: "16px" }}
+                allowClear
+            />
+            <FolderInstallation lpuId={lpuId}/>
             </Modal>
         </div>
     )
