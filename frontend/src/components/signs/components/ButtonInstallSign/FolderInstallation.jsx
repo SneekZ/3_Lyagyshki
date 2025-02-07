@@ -79,7 +79,7 @@ const FolderInstallation = ({ lpuId }) => {
                 />
             ) : (
                 <>
-                    <Modal
+                    <Modal className="scroll-container"
                     open={openSelectModal}
                     loading={loading}
                     title="Список подписей на сервере"
@@ -242,7 +242,6 @@ const InstallingSignCollapse = ({ lpuId, name }) => {
         style: { 
             backgroundColor: color,
             color: "white",
-            fontWeight: "bold",
             borderRadius: "8px",
             padding: "4px",
             marginBottom: "4px"
