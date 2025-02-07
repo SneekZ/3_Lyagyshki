@@ -35,7 +35,7 @@ const FolderInstallation = ({ lpuId }) => {
     useEffect(() => {
         const cardWidth = 160; 
         const gutter = 16 * 5; 
-        setModalWidth(6 * cardWidth + gutter);
+        setModalWidth(6 * cardWidth + gutter + 10);
     }, []);
 
     const handleInstall = () => {
