@@ -138,7 +138,7 @@ const CardGrid = ({ inputData, selectedData, setSelectedData, loading }) => {
                 <Row gutter={[16, 16]} justify="start">
                         {filteredData.map((item) => (
                             <Col key={item} xs={24} sm={12} md={8} lg={4} xl={4}>
-                                <Card bordered={false} loading={loading}>
+                                <Card bordered={true} loading={loading}>
                                     <Checkbox
                                         checked={selectedData.includes(item)}
                                         onChange={(e) => onChange(e.target.checked, item)}

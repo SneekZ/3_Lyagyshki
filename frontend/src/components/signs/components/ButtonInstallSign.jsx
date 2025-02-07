@@ -22,6 +22,10 @@ const ButtonInstallSigns = ({ lpuId }) => {
     const handleInstall = () => {
         setLoading(true)
         const install = async () => {
+            if (containerName == "") {
+                setLoading(false);
+                return null;
+            }
             try {
                 const response = await api.post(`/${lpuId}/container/install/name`, {
                     container_name: containerName
