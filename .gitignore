@@ -8,3 +8,4 @@
 /backend/GoLang/backend.exe
 backend/__pycache__
 /temp/
+/backend/DatabaseHandler/database/database.db
