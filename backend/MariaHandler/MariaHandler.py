@@ -1,4 +1,6 @@
-from sqlalchemy import create_engine, union_all, select, and_, not_, func, Null
+from sqlalchemy import select, and_, not_, func, Null, create_engine
+
+import ast
 from sqlalchemy.orm import sessionmaker
 
 from backend.MariaHandler.config import *
@@ -18,8 +20,8 @@ class MariaHandler:
         self.engine_logger = create_engine(DATABASE_ENGINE + f"{connection_data['dbuser']}:{connection_data['dbpassword']}@{connection_data['dbhost']}:{connection_data['dbport']}/{connection_data['logger']}")
 
     def _session_maker_main(self):
-        Session = sessionmaker(bind=self.engine_main)
-        session = Session()
+        SessionLocal = sessionmaker(bind=self.engine_main)
+        session = SessionLocal()
         return session
 
     def _session_maker_logger(self):
@@ -52,6 +54,23 @@ class MariaHandler:
         if isinstance(person, Person):
             return person, True
         return f"Врач со СНИЛС = {snils} не был найден", False
+    
+    def get_all_person_by_snils(self, snils: int | str):
+        session = self._session_maker_main()
+        query = select(
+            Person.id
+                       ).filter(
+            Person.SNILS == snils,
+            Person.deleted == 0,
+            Person.retired == 0,
+            Person.retireDate == None
+        )
+        persons = [dict(row)["id"] for row in session.execute(query).mappings().all()]
+        session.close()
+
+        if not persons:
+            return f"Врач со СНИЛС = {snils} не был найден", False
+        return persons, True
 
     def get_event_exec_person_by_id(self, id: int | str) -> (Event | str, bool):
         session = self._session_maker_main()
@@ -268,9 +287,7 @@ class MariaHandler:
 
 
 if __name__ == "__main__":
-    dbh = DatabaseHandler()
-    data = dbh.get_lpu(33)[0]
+    data = ast.literal_eval("{'id': 3, 'value': 3, 'name': 'СПб ГБУЗ Городская поликлиника №21', 'label': 'СПб ГБУЗ Городская поликлиника №21', 'host': 'p21', 'port': 22, 'user': 'root', 'password': 'shedF34A', 'dbhost': 'p21', 'dbport': 3306, 'dbuser': 'dbuser', 'dbpassword': 'dbpassword', 'database': 's11', 'path': '/var/opt/cprocsp/keys/root', 'logger': 'logger', 'egisz': None}")
     mh = MariaHandler(data)
-    print(type(mh.get_signed_by_event_id(590325)[0][0]))
-
+    print(mh._get_person_by_id(1))
 
