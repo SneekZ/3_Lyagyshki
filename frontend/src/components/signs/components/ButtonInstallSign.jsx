@@ -4,6 +4,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import api from './../../../axios_config'
 import { useMessage } from "../../Utils/MessageContext";
 import FolderInstallation from "./ButtonInstallSign/FolderInstallation";
+import CopyTextField from "../../Utils/CopyField";
 
 const ButtonInstallSigns = ({ lpuId }) => {
     const [modalOpen, setModalOpen] = useState(false)
@@ -106,10 +107,24 @@ const ButtonInstallSigns = ({ lpuId }) => {
                 </Button>,
             ]}
             >
-            <p>Результат: {result}</p>
-            <p>СНИЛС: {installedSnils}</p>
-            <p>SHA1 Отпечаток: {installedSha}</p>
-            <p>Ошибка: {err}</p>
+            <Flex vertical="true" gap="14px">
+                <div style={{marginBot: "10px"}}/>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                    <span>СНИЛС: </span>
+                    <CopyTextField inputText={installedSnils}/>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                    <span>SHA Отпечаток: </span>
+                    <CopyTextField inputText={installedSha}/>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                    <span style={{display: "flex", alignItems: "center", padding: "2px"}}>Результат: {result}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                    <span style={{display: "flex", alignItems: "center", padding: "2px"}}>Ошибка: {err}</span>
+                </div>
+                <div style={{marginBot: "10px"}}/>
+            </Flex>
             <Input
                 placeholder={"Установка по уникальному имени подписи"}
                 onChange={(e) => {setContainerName(e.target.value)}}

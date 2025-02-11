@@ -155,12 +155,13 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
             <CopyTextField inputText={activeSign.sha}/>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
-            <span style={{display: "flex", alignItems: "center", padding: "2px"}}>Результат: {result}</span>
+            <span style={{display: "flex", alignItems: "center"}}>Результат: {result}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
             <span>Пароль: </span>
             <CopyTextField inputText={password}/>
           </div>
+          <div style={{ marginTop: "8px" }}/>
         </Flex>
       </Modal>
     </>

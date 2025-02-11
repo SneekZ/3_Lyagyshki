@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Row, Col, Card, Checkbox, Input, Collapse } from "antd";
+import { Button, Modal, Row, Col, Card, Checkbox, Input, Collapse, Flex } from "antd";
 import api from './../../../../axios_config';
 import { useMessage } from "../../../Utils/MessageContext";
+import CopyTextField from "../../../Utils/CopyField";
 
 const FolderInstallation = ({ lpuId }) => {
     const [containerList, setContainerList] = useState([]);
@@ -134,7 +135,7 @@ const CardGrid = ({ inputData, selectedData, setSelectedData, loading }) => {
                 style={{ marginBottom: "16px" }}
             />
 
-            <div className="scroll-container" style={{ maxHeight: "320px", overflowY: "auto", paddingRight: "8px"}}>
+            <div className="scroll-container" style={{ maxHeight: "320px", overflowY: "auto", paddingRight: "8px", paddingBottom: "24px"}}>
                 <Row gutter={[16, 16]} justify="start">
                         {filteredData.map((item) => (
                             <Col key={item} xs={24} sm={12} md={8} lg={4} xl={4}>
@@ -168,8 +169,12 @@ const InstallingSigns = ({ lpuId, selectedData, openModal, setOpenModal, setInst
                 Назад
             </Button>,
         ]}
+        style={{
+            display: "flex",
+            justifyContent: "center"
+        }}
         >
-            <div className="scroll-container" style={{ maxHeight: "600px", overflowY: "auto", paddingRight: "8px" }}>
+            <div className="scroll-container" style={{ maxHeight: "600px", overflowY: "auto", paddingRight: "0px", minWidth: "500px" }}>
                 {selectedData.map((item) => (
                     <InstallingSignCollapse key={item} lpuId={lpuId} name={item} />
                 ))}
@@ -185,12 +190,28 @@ const InstallingSignCollapse = ({ lpuId, name }) => {
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState(null);
 
-    const result = (
+    const result_old = (
         <>
             <p>СНИЛС: {snils}</p>
             <p>Отпечаток: {sha}</p>
             <p>Ошибка: {error}</p>
         </>
+    )
+
+    const result = (
+        <Flex vertical="true" gap="14px">
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+            <span>СНИЛС: </span>
+            <CopyTextField inputText={snils}/>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+            <span>SHA Отпечаток: </span>
+            <CopyTextField inputText={sha}/>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+            <span>Ошибка: {error}</span>
+          </div>
+        </Flex>
     )
 
     const install = async (signal) => {
@@ -243,8 +264,8 @@ const InstallingSignCollapse = ({ lpuId, name }) => {
             backgroundColor: color,
             color: "white",
             borderRadius: "8px",
-            padding: "4px",
-            marginBottom: "4px"
+            padding: "8px",
+            marginBottom: "4px",
         }
     }]
 
