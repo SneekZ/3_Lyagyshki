@@ -191,14 +191,14 @@ html, body {
     border-radius: 2px;
     transition: background-color 0.15s ease-in-out, padding-right 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, .15);
+    box-shadow: 2px 2px 8px rgba(30, 30, 30, .3);
 }
 
 .copy-text-div:hover {
-    background-color: rgba(190, 190, 190, 0.8);
+    background-color: rgba(210, 210, 210, 0.8);
     padding-right: 20px;
 
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, .5);
+    box-shadow: 2px 2px 8px rgba(30, 30, 30, 0.8);
 }
 
 .copy-icon {

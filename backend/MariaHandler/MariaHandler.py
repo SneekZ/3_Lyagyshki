@@ -55,7 +55,7 @@ class MariaHandler:
             return person, True
         return f"Врач со СНИЛС = {snils} не был найден", False
     
-    def get_all_person_by_snils(self, snils: int | str):
+    def get_all_person_by_snils(self, snils: int | str) -> (list[int] | str, bool):
         session = self._session_maker_main()
         query = select(
             Person.id

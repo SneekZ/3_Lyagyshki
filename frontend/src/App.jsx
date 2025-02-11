@@ -19,10 +19,10 @@ function App() {
           style={{
             margin: "24px 16px",
             padding: 0,
-            background: "transparent",
+            background: "transparent"
           }}
         >
-          <div 
+          <div
             onMouseEnter={() => setHoveredHeader(true)}
             onMouseLeave={() => setHoveredHeader(false)}
             onClick={() => setPretty(!pretty)}
@@ -31,6 +31,16 @@ function App() {
                 <h className={pretty ? "title_pretty" : "title"}>ТРИ ЛЯГУШКИ</h>
               </Tooltip>
           </div>
+          <span style={{
+              color: "white",
+              fontSize: "20px",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-15px"
+            }}
+            >
+              <a style={{ color: "white" }} href="http://192.168.0.149:5173/lpu" target="_blank" rel="noopener">НеМониторинг</a>
+            </span>
         </Header>
         <Content
           className={pretty ? "content_pretty" : "content"}
