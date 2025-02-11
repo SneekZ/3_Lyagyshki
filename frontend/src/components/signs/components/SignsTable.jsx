@@ -220,7 +220,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             x: "max-content",
             y: 55 * 9.55,
           }}
-          style={{ maxWidth: "199vh" }}
+          style={{ maxWidth: "198vh" }}
           locale={{ emptyText: "Данные не найдены" }}
         />
       </ConfigProvider>

@@ -175,3 +175,47 @@ html, body {
 .scroll-container:hover::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.4); /* Чуть ярче при наведении */
 }
+
+.copy-text-div {
+    display: inline-block;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    margin: 0;
+    padding-left: 4px;
+    padding-right: 0px;
+    /* padding-top: 2px; */
+    /* padding-bottom: 2px; */
+    background-color: rgba(230 230, 230, 0.8);
+    border-radius: 2px;
+    transition: background-color 0.15s ease-in-out, padding-right 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .15);
+}
+
+.copy-text-div:hover {
+    background-color: rgba(190, 190, 190, 0.8);
+    padding-right: 20px;
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .5);
+}
+
+.copy-icon {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.copy-text-div:hover .copy-icon {
+    opacity: 1;
+}
+
+.container-card {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.container-card:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, .2);
+}

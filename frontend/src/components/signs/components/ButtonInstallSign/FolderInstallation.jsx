@@ -134,11 +134,11 @@ const CardGrid = ({ inputData, selectedData, setSelectedData, loading }) => {
                 style={{ marginBottom: "16px" }}
             />
 
-            <div className="scroll-container" style={{ maxHeight: "320px", overflowY: "auto", paddingRight: "8px" }}>
+            <div className="scroll-container" style={{ maxHeight: "320px", overflowY: "auto", paddingRight: "8px"}}>
                 <Row gutter={[16, 16]} justify="start">
                         {filteredData.map((item) => (
                             <Col key={item} xs={24} sm={12} md={8} lg={4} xl={4}>
-                                <Card bordered={true} loading={loading}>
+                                <Card bordered={true} loading={loading} className="container-card">
                                     <Checkbox
                                         checked={selectedData.includes(item)}
                                         onChange={(e) => onChange(e.target.checked, item)}
