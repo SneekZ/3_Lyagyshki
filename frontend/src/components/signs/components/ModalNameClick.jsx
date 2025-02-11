@@ -16,13 +16,20 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
   const [password, setPassword] = useState("");
   const [ids, setIds] = useState("");
 
-  const [popupOpen, setPopupOpen] = useState(false)
+  const [popupOpen, setPopupOpen] = useState(false);
 
   useEffect(() => {
     if (modalOpen) {
-      check();
-      findIds();
-    }
+      const controller = new AbortController();
+      const signal = controller.signal;
+
+      check(signal);
+      findIds(signal);
+
+      return () => {
+        controller.abort();
+      }
+    } 
   }, [modalOpen])
 
   useEffect(() => {
@@ -33,10 +40,10 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
     }
   }, [loadingCheck, loadingFind])
 
-  const check = async () => {
+  const check = async (signal) => {
     setLoadingCheck(true);
     try {
-          const response = await api.get(`/${activeSign.lpu_id}/signs/check/snils/${activeSign.snils}`)
+          const response = await api.get(`/${activeSign.lpu_id}/signs/check/snils/${activeSign.snils}`, { signal })
           if (response.data.ok) {
               setResult("Работает")
               setPassword(response.data.data)
@@ -56,10 +63,10 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
       }
   }
 
-  const findIds = async () => {
+  const findIds = async (signal) => {
     setLoadingFind(true);
     try {
-      const response = await api.get(`/${activeSign.lpu_id}/persons/snils/${activeSign.snils}`);
+      const response = await api.get(`/${activeSign.lpu_id}/persons/snils/${activeSign.snils}`, { signal });
       if (response.data.data) {
         setIds(response.data.data.join(", "))
       }

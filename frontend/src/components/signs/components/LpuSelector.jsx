@@ -9,9 +9,9 @@ const LpuSelector = ({lpuId, setLpuId}) => {
 
     const showMessage = useMessage();
 
-    const fetchData = async () => {
+    const fetchData = async (signal) => {
         try {
-            const response = await api.get('/lpu')
+            const response = await api.get('/lpu', {signal})
             return response.data
         } catch (error) {
             if (error.response) {
@@ -25,11 +25,18 @@ const LpuSelector = ({lpuId, setLpuId}) => {
     }
 
     useEffect(() => {
-        const getData = async () => {
-            const response = await fetchData()
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        const getData = async (signal) => {
+            const response = await fetchData(signal)
             setLpuData(response.data)
         }
-        getData()
+        getData(signal)
+
+        return () => {
+            controller.abort();
+        }
     }, [])
 
     const handleChange = (value) => {
