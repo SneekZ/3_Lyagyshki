@@ -28,7 +28,7 @@ function App() {
             onClick={() => setPretty(!pretty)}
             >
               <Tooltip title="Сменить режим отображения" color="grey">
-                <h className={pretty ? "title_pretty" : "title"}>ТРИ ЛЯГУШКИ</h>
+                <h className={pretty ? "title_pretty" : "title"} style={{ color: "#ffffff" }}>ТРИ ЛЯГУШКИ</h>
               </Tooltip>
           </div>
           <span style={{
@@ -39,11 +39,11 @@ function App() {
               marginTop: "-15px"
             }}
             >
-              <a style={{ color: "white" }} href="http://192.168.0.149:5173/lpu" target="_blank" rel="noopener">НеМониторинг</a>
+              <a style={{ color: "#ffffff" }} href="http://192.168.0.149:5173/lpu" target="_blank" rel="noopener" >НеМониторинг</a>
             </span>
         </Header>
         <Content
-          className={pretty ? "content_pretty" : "content"}
+          className={pretty ? "content_pretty sofia-sans-semi-condensed" : "content sofia-sans-semi-condensed"}
           style={{
             margin: "24px 24px",
             padding: 24,

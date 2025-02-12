@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "antd";
+import { Button, ConfigProvider, theme } from "antd";
 import api from './../../../axios_config'
 import { useMessage } from "../../Utils/MessageContext";
 
@@ -32,7 +32,19 @@ const ButtonLoadSigns = ({ lpuId, setSigns }) => {
     }
 
     return (
-        <Button className="default_button" onClick={handleClick} loading={ loading }>Загрузить данные</Button>
+        <ConfigProvider
+            theme={{
+                algorithm: theme.darkAlgorithm,
+            }}
+        >
+            <Button
+                className="default_button"
+                onClick={handleClick}
+                loading={ loading }
+                >
+                    Загрузить данные
+            </Button>
+        </ConfigProvider>
     )
 }
 

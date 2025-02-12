@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Input, Upload, Flex } from "antd";
+import { Button, Modal, Input, Upload, Flex, ConfigProvider, theme } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import api from './../../../axios_config'
 import { useMessage } from "../../Utils/MessageContext";
@@ -92,51 +92,57 @@ const ButtonInstallSigns = ({ lpuId }) => {
 
     return (
         <div className="default_button">
-            <Button className="default_button" onClick={handleClick}>Установить подпись</Button>
-            <Modal
-            open={modalOpen}
-            title="Установка подписи"
-            onCancel={handleClose}
-            onPressEnter={handleInstall}
-            footer={[
-                <Button type="primary" loading={loading} onClick={handleInstall}>
-                    Установить подпись
-                </Button>,
-                <Button type="default" onClick={handleClose}>
-                    Назад
-                </Button>,
-            ]}
+            <ConfigProvider
+                theme={{
+                    algorithm: theme.darkAlgorithm,
+                }}
             >
-            <Flex vertical="true" gap="14px">
-                <div style={{marginBot: "10px"}}/>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
-                    <span>СНИЛС: </span>
-                    <CopyTextField inputText={installedSnils}/>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
-                    <span>SHA Отпечаток: </span>
-                    <CopyTextField inputText={installedSha}/>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
-                    <span style={{display: "flex", alignItems: "center", padding: "2px"}}>Результат: {result}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
-                    <span style={{display: "flex", alignItems: "center", padding: "2px"}}>Ошибка: {err}</span>
-                </div>
-                <div style={{marginBot: "10px"}}/>
-            </Flex>
-            <Input
-                placeholder={"Установка по уникальному имени подписи"}
-                onChange={(e) => {setContainerName(e.target.value)}}
+                <Button className="default_button" onClick={handleClick}>Установить подпись</Button>
+                <Modal
+                open={modalOpen}
+                title="Установка подписи"
+                onCancel={handleClose}
                 onPressEnter={handleInstall}
-                style={{ marginBottom: "16px" }}
-                allowClear
-            />
-            <FolderInstallation lpuId={lpuId}/>
-            <Upload customRequest={customRequest} onChange={handleChange} style={{ marginTop: "16px", marginBot:"16px" }}>
-                <Button icon={<UploadOutlined />} style={{ marginTop: "16px", width: "100%" }}>Загрузить архив (пока что только .zip)</Button>
-            </Upload>
-            </Modal>
+                footer={[
+                    <Button type="primary" loading={loading} onClick={handleInstall}>
+                        Установить подпись
+                    </Button>,
+                    <Button type="default" onClick={handleClose}>
+                        Назад
+                    </Button>,
+                ]}
+                >
+                <Flex vertical="true" gap="14px">
+                    <div style={{marginBot: "10px"}}/>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                        <span>СНИЛС: </span>
+                        <CopyTextField inputText={installedSnils}/>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                        <span>SHA Отпечаток: </span>
+                        <CopyTextField inputText={installedSha}/>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                        <span style={{display: "flex", alignItems: "center", padding: "2px"}}>Результат: {result}</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+                        <span style={{display: "flex", alignItems: "center", padding: "2px"}}>Ошибка: {err}</span>
+                    </div>
+                    <div style={{marginBot: "10px"}}/>
+                </Flex>
+                <Input
+                    placeholder={"Установка по уникальному имени подписи"}
+                    onChange={(e) => {setContainerName(e.target.value)}}
+                    onPressEnter={handleInstall}
+                    style={{ marginBottom: "16px" }}
+                    allowClear
+                />
+                <FolderInstallation lpuId={lpuId}/>
+                <Upload customRequest={customRequest} onChange={handleChange} style={{ marginTop: "16px", marginBot:"16px" }}>
+                    <Button icon={<UploadOutlined />} style={{ marginTop: "16px", width: "100%" }}>Загрузить архив (пока что только .zip)</Button>
+                </Upload>
+                </Modal>
+            </ConfigProvider>
         </div>
     )
 }

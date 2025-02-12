@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Select } from 'antd';
+import { Select, ConfigProvider, theme } from 'antd';
 import api from '../../../axios_config';
 import { useMessage } from "../../Utils/MessageContext";
 
@@ -44,6 +44,11 @@ const LpuSelector = ({lpuId, setLpuId}) => {
     }
 
     return (
+        <ConfigProvider
+            theme={{
+                algorithm: theme.darkAlgorithm,
+            }}
+        >
             <Select
             onChange={handleChange}
             className="lpu_selector"
@@ -57,6 +62,7 @@ const LpuSelector = ({lpuId, setLpuId}) => {
             }
             options={lpuData}
             />
+        </ConfigProvider>
         )
     }
 

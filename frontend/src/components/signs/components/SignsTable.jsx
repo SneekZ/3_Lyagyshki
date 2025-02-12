@@ -55,16 +55,20 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
           style={{
             marginBottom: 8,
             display: "block",
+            color: "#000000",
+            backgroundColor: "#ffffff"
           }}
         />
         <Space>
           <Button
-            type="primary"
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
+            icon={<SearchOutlined color="#ffffff"/>}
             size="small"
             style={{
               width: 90,
+              color: "#ffffff",
+              backgroundColor: "#2a2b32",
+              borderColor: "#888888"
             }}
           >
             Search
@@ -74,6 +78,9 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             size="small"
             style={{
               width: 90,
+              color: "#ffffff",
+              backgroundColor: "#2a2b32",
+              borderColor: "#888888"
             }}
           >
             Reset
@@ -88,6 +95,10 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
               setSearchText(selectedKeys[0]);
               setSearchedColumn(dataIndex);
             }}
+            style={{
+              color: "#ffffff",
+              backgroundColor: "#2a2b32"
+            }}
           >
             Filter
           </Button>
@@ -96,6 +107,10 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             size="small"
             onClick={() => {
               close();
+            }}
+            style={{
+              color: "#ffffff",
+              backgroundColor: "#2a2b32"
             }}
           >
             close
@@ -106,7 +121,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
     filterIcon: (filtered) => (
       <SearchOutlined
         style={{
-          color: filtered ? "#1677ff" : undefined,
+          color: filtered ? "#ffffff" : "#ffffff",
         }}
       />
     ),
@@ -145,7 +160,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
       key: "name",
       width: "30%",
       render: (_, { name, snils, lpu_id, sha }) => {
-        return <a onClick={() => handleNameClick(lpu_id, name, snils, sha)}>{name}</a>;
+        return <a style={{ color: "#d0d0ff" }} onClick={() => handleNameClick(lpu_id, name, snils, sha)}>{name}</a>;
       },
       ...getColumnSearchProps("name"),
     },
@@ -168,7 +183,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
           return;
         }
         return (
-          <Tag color={color} key={expired_text}>
+          <Tag color={color} key={expired_text} style={{ colorText: "#000000" }}>
             {expired_text.toUpperCase()}
           </Tag>
         );
@@ -187,7 +202,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
         let color = is_new ? "green" : "red";
         let double_text = is_new ? "Новая" : "Старая";
         return (
-          <Tag color={color} key={double_text}>
+          <Tag color={color} key={double_text} style={{ colorText: "#000000" }}>
             {double_text.toUpperCase()}
           </Tag>
         );
@@ -208,6 +223,10 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
       <ConfigProvider
         theme={{
           token: {
+            colorBgContainer: "#2a2b32",
+            colorText: "#ffffff",
+            colorBgBase: "#2a2b32",
+            colorBorderSecondary: "#2a2b32",
           }
         }}
       >
@@ -220,8 +239,10 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             x: "max-content",
             y: 55 * 9.55,
           }}
-          style={{ maxWidth: "198vh" }}
+          style={{ maxWidth: "198vw" }}
           locale={{ emptyText: "Данные не найдены" }}
+          bordered="false"
+          rowKey={(record) => record.id}
         />
       </ConfigProvider>
     </div>

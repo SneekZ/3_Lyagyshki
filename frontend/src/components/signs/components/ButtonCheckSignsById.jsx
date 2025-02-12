@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Input, Flex, Collapse } from "antd"
+import { Button, Modal, Input, Flex, Collapse, ConfigProvider, theme } from "antd"
 import * as XLSX from "xlsx"
 import api from './../../../axios_config'
 
@@ -78,35 +78,41 @@ const ButtonCheckSigns = ({ lpuId }) => {
 
     return (
         <div className="default_button">
-            <Button className="default_button" onClick={handleClick}>Проверить список подписей</Button>
-            <Modal
-            open={modalOpen}
-            title="Проверка спиcка id"
-            onCancel={handleClose}
-            onPressEnter={handleCheck}
-            footer={[
-                <Button type="primary" loading={loading} onClick={handleCheck}>
-                   Проверить 
-                </Button>,
-                <Button type="default" onClick={handleClose}>
-                    Назад
-                </Button>,
-            ]}
+            <ConfigProvider
+                theme={{
+                    algorithm: theme.darkAlgorithm,
+                }}
             >
-            <Input placeholder="Введите список подписей" onChange={(e) => {setInputText(e.target.value)}} onPressEnter={handleCheck} allowClear/>
-            <Flex justify="space-between" align="center">
-                <p style={{ marginLeft: "3px" }}>Результат: {result}</p>
-                <Button style={{ marginTop: "1%" }} type="default" disabled={(result == "Успешно") ? false : true} onClick={handleDownload}>Скачать</Button>
-            </Flex>
-            <Collapse items={[{
-                key: '1',
-                label: 'Быстрый просмотр',
-                children: <pre>{textedData}</pre>
-            }]}
-                collapsible={(result == "Успешно") ? "" : "disabled"}
-                style={{ marginTop: "1%"}}>
-                </Collapse>
-            </Modal>
+                <Button className="default_button" onClick={handleClick}>Проверить список подписей</Button>
+                <Modal
+                open={modalOpen}
+                title="Проверка спиcка id"
+                onCancel={handleClose}
+                onPressEnter={handleCheck}
+                footer={[
+                    <Button type="primary" loading={loading} onClick={handleCheck}>
+                    Проверить 
+                    </Button>,
+                    <Button type="default" onClick={handleClose}>
+                        Назад
+                    </Button>,
+                ]}
+                >
+                <Input placeholder="Введите список подписей" onChange={(e) => {setInputText(e.target.value)}} onPressEnter={handleCheck} allowClear/>
+                <Flex justify="space-between" align="center">
+                    <p style={{ marginLeft: "3px" }}>Результат: {result}</p>
+                    <Button style={{ marginTop: "1%" }} type="default" disabled={(result == "Успешно") ? false : true} onClick={handleDownload}>Скачать</Button>
+                </Flex>
+                <Collapse items={[{
+                    key: '1',
+                    label: 'Быстрый просмотр',
+                    children: <pre>{textedData}</pre>
+                }]}
+                    collapsible={(result == "Успешно") ? "" : "disabled"}
+                    style={{ marginTop: "1%"}}>
+                    </Collapse>
+                </Modal>
+            </ConfigProvider>
         </div>
     )
 }

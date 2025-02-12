@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Flex } from 'antd';
+import { Flex, ConfigProvider, theme } from 'antd';
 import LpuSelector from "./components/LpuSelector";
 import ButtonLoadSigns from "./components/ButtonLoadSigns";
 import SignsTable from "./components/SignsTable";
@@ -20,18 +20,18 @@ const Signs = () => {
     const [modalOpen, setModalOpen] = useState(false)
 
     return (
-        <Flex className="main_app_container" vertical={true}>
-            <Flex className="row_selector" gap="middle">
-                <LpuSelector lpuId={lpuId} setLpuId={setLpuId}/>
-                <ButtonLoadSigns lpuId={lpuId} setSigns={setSigns}/>
-                <ButtonInstallSigns lpuId={lpuId}/>
-                <ButtonCheckSignsById lpuId={lpuId}/>
+            <Flex className="main_app_container" vertical={true}>
+                <Flex className="row_selector" gap="middle">
+                    <LpuSelector lpuId={lpuId} setLpuId={setLpuId} />
+                    <ButtonLoadSigns lpuId={lpuId} setSigns={setSigns}/>
+                    <ButtonInstallSigns lpuId={lpuId}/>
+                    <ButtonCheckSignsById lpuId={lpuId}/>
+                </Flex>
+                <Flex class_name="row_table">
+                    <SignsTable signs={signs} setModalOpen={setModalOpen} setActiveSign={setActiveSign}/>
+                    <ModalNameClick modalOpen={modalOpen} setModalOpen={setModalOpen} activeSign={activeSign}/>
+                </Flex>
             </Flex>
-            <Flex class_name="row_table">
-                <SignsTable signs={signs} setModalOpen={setModalOpen} setActiveSign={setActiveSign}/>
-                <ModalNameClick modalOpen={modalOpen} setModalOpen={setModalOpen} activeSign={activeSign}/>
-            </Flex>
-        </Flex>
         )
     }
 
