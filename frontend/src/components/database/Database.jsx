@@ -52,8 +52,8 @@ const Database = () => {
             <Flex gap="12px" style={{
                 marginBottom: "12px"
             }}>
-                <LpuFilterInput setLpuList={setLpuList} loading={loading} fullLpuList={fullLpuList} style={{ height: "40px", flex: .85 }}/>
-                <Button style={{ height: "40px", flex: .15 }} onClick={() => setModalOpen(true)}>Добавить ЛПУ</Button>
+                <LpuFilterInput setLpuList={setLpuList} loading={loading} fullLpuList={fullLpuList} style={{ height: "50px", flex: .85 }}/>
+                <Button style={{ height: "50px", flex: .15 }} onClick={() => setModalOpen(true)}>Добавить ЛПУ</Button>
                 <ModalAddLpu modalOpen={modalOpen} setModalOpen={setModalOpen} />
             </Flex>
             <LpuTable lpuList={lpuList} loading={loading}/>

@@ -134,7 +134,7 @@ html, body {
     align-items: center; /* Вертикальное центрирование */
     color: var(--primary-text);
     overflow: hidden;
-    transition: transform .5s ease-in-out;
+    transition: transform .8s ease-in-out;
 }
 
 .title_frogs {
@@ -147,7 +147,7 @@ html, body {
     align-items: center; /* Вертикальное центрирование */
     color: var(--primary-text);
     overflow: hidden;
-    transition: transform .5s ease-in-out;
+    transition: transform .8s ease-in-out;
 }
 
 .title_container:hover .title_tri {
@@ -163,12 +163,13 @@ html, body {
     opacity: 0;
     pointer-events: none;
 
-    transition: opacity 1s ease-in-out;
+    transition: opacity .5s ease-in-out;
 }
 
 .title_container:hover .title_button {
     opacity: 1;
     pointer-events: auto;
+    transition: opacity 1.5s ease-in-out;
 }
 
 .title_pretty {

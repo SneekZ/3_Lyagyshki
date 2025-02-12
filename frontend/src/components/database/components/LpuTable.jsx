@@ -11,13 +11,13 @@ const LpuTable = ({ lpuList, loading }) => {
     return (
         <ConfigProvider
             theme={{
-            token: {
-                colorBgContainer: "#2a2b32",
-                colorText: "#ffffff",
-                colorBgBase: "#2a2b32",
-                colorBorderSecondary: "#2a2b32",
-                headerColor: "#2a2b32"
-            }
+                token: {
+                    colorBgContainer: "#2a2b32",
+                    colorText: "#ffffff",
+                    colorBgBase: "#2a2b32",
+                    colorBorderSecondary: "#2a2b32",
+                    headerColor: "#2a2b32"
+                }
             }}
         >
             <Table
@@ -26,7 +26,7 @@ const LpuTable = ({ lpuList, loading }) => {
                 pagination={{ pageSize: 5000, position: ['none', 'none'] }}
                 scroll={{ 
                     x: "max-content",
-                    y: 55 * 10,
+                    y: 55 * 9.5,
                 }}
             >
                 <Column title="Название" dataIndex="name" key="name" />

@@ -62,8 +62,6 @@ const ModalAddLpu = ({ modalOpen, setModalOpen }) => {
         }
 
         addLpu(newLpu);
-
-        setLoading(false);
     }
 
     const addLpu = async (newLpu) => {
@@ -79,6 +77,8 @@ const ModalAddLpu = ({ modalOpen, setModalOpen }) => {
             } else {
                 showMessage("error", "Неизвестная ошибка: " + error.message)
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -103,6 +103,10 @@ const ModalAddLpu = ({ modalOpen, setModalOpen }) => {
                     <br/>
                     <span>
                         Поля, не имеющие плейсхолдеров, являются обязательными для заполнения
+                    </span>
+                    <br/>
+                    <span>
+                        Запрос может выполняться очень долго, так как перед добавлением записи происходит попытка подключения к серверу и бд, запись не будет добавлена если подключение не удастся
                     </span>
                 </div>
                 <Flex vertical={true} gap="8px">
