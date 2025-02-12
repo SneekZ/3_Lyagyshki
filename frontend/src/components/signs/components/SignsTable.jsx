@@ -158,9 +158,9 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
-      width: "30%",
+      width: "25%",
       render: (_, { name, snils, lpu_id, sha }) => {
-        return <a style={{ color: "#d0d0ff" }} onClick={() => handleNameClick(lpu_id, name, snils, sha)}>{name}</a>;
+        return <a style={{ color: "#9999ff" }} onClick={() => handleNameClick(lpu_id, name, snils, sha)}>{name}</a>;
       },
       ...getColumnSearchProps("name"),
     },
@@ -213,7 +213,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
       title: "Должность",
       dataIndex: "t",
       key: "t",
-      width: "20%",
+      width: "15%",
       ...getColumnSearchProps("t"),
     },
   ];
@@ -234,15 +234,15 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
           className={styles.customTable}
           columns={columns}
           dataSource={signs || [{}]}
-          pagination={{ pageSize: 500 }}
+          pagination={{ pageSize: 5000, position: ['none', 'none'] }}
           scroll={{ 
             x: "max-content",
-            y: 55 * 9.55,
+            y: 55 * 10,
           }}
-          style={{ maxWidth: "198vw" }}
+          style={{ maxWidth: "199vh" }}
           locale={{ emptyText: "Данные не найдены" }}
-          bordered="false"
           rowKey={(record) => record.id}
+          sticky={true}
         />
       </ConfigProvider>
     </div>

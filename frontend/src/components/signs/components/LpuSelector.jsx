@@ -50,17 +50,18 @@ const LpuSelector = ({lpuId, setLpuId}) => {
             }}
         >
             <Select
-            onChange={handleChange}
-            className="lpu_selector"
-            showSearch
-            placeholder="Выбери ЛПУ"
-            optionFilterProp="label"
-            filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                .toLowerCase()
-                .localeCompare((optionB?.label ?? "").toLowerCase())
-            }
-            options={lpuData}
+                onChange={handleChange}
+                className="lpu_selector"
+                showSearch
+                placeholder="Выбери ЛПУ"
+                optionFilterProp="label"
+                filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? "")
+                    .toLowerCase()
+                    .localeCompare((optionB?.label ?? "").toLowerCase())
+                }
+                options={lpuData}
+                autoFocus
             />
         </ConfigProvider>
         )

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, ConfigProvider, theme } from "antd";
 import api from './../../../axios_config'
 import { useMessage } from "../../Utils/MessageContext";
@@ -30,6 +30,12 @@ const ButtonLoadSigns = ({ lpuId, setSigns }) => {
     const handleClick = () => {
         loadData()
     }
+
+    useEffect(() => {
+        if (lpuId != 0) {
+            loadData();
+        }
+    }, [lpuId])
 
     return (
         <ConfigProvider

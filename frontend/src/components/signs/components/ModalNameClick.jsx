@@ -112,6 +112,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
   const handleClose = () => {
     setResult("")
     setPassword("")
+    setIds("")
     setModalOpen(false)
   }
 

@@ -1,7 +1,11 @@
 import Router from './Router'
-import { Layout, theme, Tooltip } from 'antd'
+import { Layout, theme, Flex, Button, ConfigProvider } from 'antd'
 import React, { useState } from 'react';
+
+
 function App() {
+
+  // const navigate = useNavigate();
 
   const { Header, Sider, Content } = Layout;
   const [hoveredHeader, setHoveredHeader] = useState(false);
@@ -10,11 +14,9 @@ function App() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const [pretty, setPretty] = useState(false);
-
   return (
-    <Layout className={pretty ? "header_container_pretty" : "header_container"}>
-    <Header
+    <Layout className="header_container">
+      <Header
           className="header"
           style={{
             margin: "24px 16px",
@@ -22,15 +24,22 @@ function App() {
             background: "transparent"
           }}
         >
-          <div
-            onMouseEnter={() => setHoveredHeader(true)}
-            onMouseLeave={() => setHoveredHeader(false)}
-            onClick={() => setPretty(!pretty)}
-            >
-              <Tooltip title="Сменить режим отображения" color="grey">
-                <h className={pretty ? "title_pretty" : "title"} style={{ color: "#ffffff" }}>ТРИ ЛЯГУШКИ</h>
-              </Tooltip>
-          </div>
+            <div className='title_container'>
+              <Flex justify='center' gap='8px'>
+                <h className="title_tri" style={{ color: "#ffffff" }}>ТРИ</h>
+                <h className="title_frogs" style={{ color: "#ffffff" }}>ЛЯГУШКИ</h>
+              </Flex>
+              <ConfigProvider
+                theme={{
+                  algorithm: theme.darkAlgorithm
+                }}
+              >
+                <Flex justify='center' className='title_button' gap="18px">
+                    <Button href={`${window.location.origin}/signs`}>Подписи</Button>
+                    <Button href={`${window.location.origin}/database`}>Список ЛПУ</Button>
+                </Flex>
+              </ConfigProvider>
+            </div>
           <span style={{
               color: "white",
               fontSize: "20px",
@@ -43,7 +52,7 @@ function App() {
             </span>
         </Header>
         <Content
-          className={pretty ? "content_pretty sofia-sans-semi-condensed" : "content sofia-sans-semi-condensed"}
+          className="content sofia-sans-semi-condensed"
           style={{
             margin: "24px 24px",
             padding: 24,

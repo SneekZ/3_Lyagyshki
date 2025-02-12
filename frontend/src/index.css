@@ -118,7 +118,13 @@ html, body {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 1.);
 }
 
-.title {
+.title_container {
+    display: flex;
+    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center; /* Вертикальное центрирование */
+}
+
+.title_tri {
     font-size: xx-large;
     font-family: "Dela Gothic One", sans-serif;
     font-weight: 400;
@@ -127,6 +133,42 @@ html, body {
     justify-content: center; /* Горизонтальное центрирование */
     align-items: center; /* Вертикальное центрирование */
     color: var(--primary-text);
+    overflow: hidden;
+    transition: transform .5s ease-in-out;
+}
+
+.title_frogs {
+    font-size: xx-large;
+    font-family: "Dela Gothic One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center; /* Вертикальное центрирование */
+    color: var(--primary-text);
+    overflow: hidden;
+    transition: transform .5s ease-in-out;
+}
+
+.title_container:hover .title_tri {
+    transform: translateX(-160%);
+}
+
+.title_container:hover .title_frogs {
+    transform: translateX(120%);
+}
+
+.title_button {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 1s ease-in-out;
+}
+
+.title_container:hover .title_button {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .title_pretty {
@@ -245,4 +287,13 @@ html, body {
 
 .container-card:hover {
     box-shadow: 4px 4px 8px rgba(0, 0, 0, .2);
+}
+
+.lpu_add_tip {
+    border-radius: 10px;
+    background-color: #3f3f3f;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding: 12px;
+    color: #bfbfbf;
 }

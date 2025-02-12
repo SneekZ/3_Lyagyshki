@@ -49,6 +49,7 @@ const FolderInstallation = ({ lpuId }) => {
     
     const handleClose = () => {
         setOpenSelectedModal(false);
+        setChoosenContainerList([]);
     };
 
     useEffect(() => {
@@ -174,7 +175,7 @@ const InstallingSigns = ({ lpuId, selectedData, openModal, setOpenModal, setInst
             justifyContent: "center"
         }}
         >
-            <div className="scroll-container" style={{ maxHeight: "600px", overflowY: "auto", paddingRight: "0px", minWidth: "500px" }}>
+            <div className="scroll-container" style={{ maxHeight: "600px", overflowY: "auto", paddingRight: "0px", minWidth: "500px", paddingTop: "10px" }}>
                 {selectedData.map((item) => (
                     <InstallingSignCollapse key={item} lpuId={lpuId} name={item} />
                 ))}
@@ -248,9 +249,9 @@ const InstallingSignCollapse = ({ lpuId, name }) => {
         if (loading) {
             setColor(null);
         } else if (snils != "") {
-            setColor("#ccffcc")
+            setColor("#669966")
         } else if (error != "") {
-            setColor("#ffcccc")
+            setColor("#996666")
         } else {
             setColor(null);
         }
