@@ -1,35 +1,35 @@
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-    color-scheme: dark;
+  color-scheme: dark;
 
-    --primary-bg: #121212; /* Фон страницы */
-    --secondary-bg: #343541; /* Вторичный фон */
-    --primary-text: #f1f5fb; /* Основной текст */
-    --secondary-text: #9ca3af; /* Вторичный текст */
-    --accent-color: #10a37f; /* Акцентный цвет */
-    --border-color: #4b5563; /* Цвет границ */
-    --hover-bg: #2a2b32; /* Цвет для ховера */
+  --primary-bg: #121212; /* Фон страницы */
+  --secondary-bg: #343541; /* Вторичный фон */
+  --primary-text: #f1f5fb; /* Основной текст */
+  --secondary-text: #9ca3af; /* Вторичный текст */
+  --accent-color: #10a37f; /* Акцентный цвет */
+  --border-color: #4b5563; /* Цвет границ */
+  --hover-bg: #2a2b32; /* Цвет для ховера */
 }
 
-html, body {
-    margin: 0; /* Убираем стандартные отступы */
-    padding: 0; /* Убираем стандартные внутренние отступы */
-    height: 100%; /* Устанавливаем высоту 100% */
-    box-sizing: border-box; /* Гарантируем правильный подсчет размеров */
-    display: flex;
-    flex-direction: column;
+html,
+body {
+  margin: 0; /* Убираем стандартные отступы */
+  padding: 0; /* Убираем стандартные внутренние отступы */
+  height: 100%; /* Устанавливаем высоту 100% */
+  box-sizing: border-box; /* Гарантируем правильный подсчет размеров */
+  display: flex;
+  flex-direction: column;
 }
-
 
 .sofia-sans-semi-condensed {
-    font-family: "Sofia Sans Semi Condensed", serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-  }
+  font-family: "Sofia Sans Semi Condensed", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
 
 @keyframes wavyGradient {
   0% {
@@ -50,160 +50,160 @@ html, body {
 }
 
 .header_container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: var(--primary-bg);
-    }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--primary-bg);
+}
 
 .header_container_pretty {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background: linear-gradient(135deg, #804e16, #c497a6);
-    background-size: 200% 200%; 
-    animation: wavyGradient 15s infinite alternate ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: linear-gradient(135deg, #804e16, #c497a6);
+  background-size: 200% 200%;
+  animation: wavyGradient 15s infinite alternate ease-in-out;
 }
 
 .header {
-    flex: 1; /* Фиксированная высота (или auto) для заголовка */
-    cursor: pointer;
+  flex: 1; /* Фиксированная высота (или auto) для заголовка */
+  cursor: pointer;
 }
 
 .content {
-    flex: 1; /* Эта часть будет занимать оставшееся пространство */
-    overflow: auto; /* Добавьте, если нужно скроллирование внутри */
-    border-radius: 20px;
-    background: #2a2b32;
+  flex: 1; /* Эта часть будет занимать оставшееся пространство */
+  overflow: auto; /* Добавьте, если нужно скроллирование внутри */
+  border-radius: 20px;
+  background: #2a2b32;
 }
 
 .content_pretty {
-    flex: 1; /* Эта часть будет занимать оставшееся пространство */
-    overflow: auto; /* Добавьте, если нужно скроллирование внутри */
-    border-radius: 20px;
-    background: rgba(200, 200, 200, 0.15);
-    backdrop-filter: blur(1px);
+  flex: 1; /* Эта часть будет занимать оставшееся пространство */
+  overflow: auto; /* Добавьте, если нужно скроллирование внутри */
+  border-radius: 20px;
+  background: rgba(200, 200, 200, 0.15);
+  backdrop-filter: blur(1px);
 }
 
 .footer {
-    flex: 0; /* Фиксированная высота (или auto) для футера */
+  flex: 0; /* Фиксированная высота (или auto) для футера */
 }
 
 .lpu_selector {
-    flex: 0.85;
-    width: 100%;
-    height: 50px;
+  flex: 0.85;
+  width: 100%;
+  height: 50px;
 
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, .6);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .default_button {
-    flex: 0.15;
-    width: 100%;
-    height: 50px;
-    border-radius: 8px;
+  flex: 0.15;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
 
-    background-color: #212225;
-    border-width: 0;
-    color: white;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, .6);
+  background-color: #212225;
+  border-width: 0;
+  color: white;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 
-    transition: box-shadow 0.15s ease-in-out;
+  transition: box-shadow 0.15s ease-in-out;
 }
 
 .default_button:hover {
-    background-color: #212225;
-    color: #212225;
-    border-width: 0;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 1.);
+  background-color: #212225;
+  color: #212225;
+  border-width: 0;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
 .title_container {
-    display: flex;
-    justify-content: center; /* Горизонтальное центрирование */
-    align-items: center; /* Вертикальное центрирование */
+  display: flex;
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center; /* Вертикальное центрирование */
 }
 
 .title_tri {
-    font-size: xx-large;
-    font-family: "Dela Gothic One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    display: flex;
-    justify-content: center; /* Горизонтальное центрирование */
-    align-items: center; /* Вертикальное центрирование */
-    color: var(--primary-text);
-    overflow: hidden;
-    transition: transform .8s ease-in-out;
+  font-size: xx-large;
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center; /* Вертикальное центрирование */
+  color: var(--primary-text);
+  overflow: hidden;
+  transition: transform 0.8s ease-in-out;
 }
 
 .title_frogs {
-    font-size: xx-large;
-    font-family: "Dela Gothic One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    display: flex;
-    justify-content: center; /* Горизонтальное центрирование */
-    align-items: center; /* Вертикальное центрирование */
-    color: var(--primary-text);
-    overflow: hidden;
-    transition: transform .8s ease-in-out;
+  font-size: xx-large;
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+      display: flex;
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center; /* Вертикальное центрирование */
+  color: var(--primary-text);
+  overflow: hidden;
+  transition: transform 0.8s ease-in-out;
 }
 
 .title_container:hover .title_tri {
-    transform: translateX(-160%);
+  transform: translateX(-160%);
 }
 
 .title_container:hover .title_frogs {
-    transform: translateX(120%);
+  transform: translateX(120%);
 }
 
 .title_button {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 
-    transition: opacity .5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .title_container:hover .title_button {
-    opacity: 1;
-    pointer-events: auto;
-    transition: opacity 1.5s ease-in-out;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 1.5s ease-in-out;
 }
 
 .title_pretty {
-    font-size: xx-large;
-    font-family: "Dela Gothic One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    display: flex;
-    justify-content: center; /* Горизонтальное центрирование */
-    align-items: center; /* Вертикальное центрирование */
-    color: var(--primary-text);
- }
+  font-size: xx-large;
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center; /* Вертикальное центрирование */
+  color: var(--primary-text);
+}
 
 .main_app_container {
-    /* margin-left: 1%; */
-    /* margin-right: 1%; */
-    padding: 0;
-    height: 100%;
-    flex: 1;
-    max-width: 100%;
+  /* margin-left: 1%; */
+  /* margin-right: 1%; */
+  padding: 0;
+  height: 100%;
+  flex: 1;
+  max-width: 100%;
 }
 
-.row_selector{
-    margin-top: 1%;
-    width: 100%;
-    display: flex;
-    align-items: center;
+.row_selector {
+  margin-top: 1%;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.row_table{
-    max-width: 100%;
-    height: 100%;
-    flex: 1;
-    table-layout: fixed;
+.row_table {
+  max-width: 100%;
+  height: 100%;
+  flex: 1;
+  table-layout: fixed;
 }
 
 .notfound_container {
@@ -215,86 +215,87 @@ html, body {
   display: flex;
   justify-content: center; /* Центрирование по горизонтали */
   align-items: center; /* Центрирование по вертикали */
-  height: 100%; 
+  height: 100%;
 }
 
 .scroll-container {
-    /* max-height: 320px; */
-    overflow-y: auto;
-    padding-right: 8px;
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+  /* max-height: 320px; */
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
 }
 
 /* Скрытый скроллбар для Chrome/Safari */
 .scroll-container::-webkit-scrollbar {
-    width: 6px; /* Уже делаем тонким */
+  width: 6px; /* Уже делаем тонким */
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* Полупрозрачный */
-    border-radius: 4px;
-    transition: background-color 0.3s ease-in-out; /* Плавное появление */
+  background-color: rgba(0, 0, 0, 0.2); /* Полупрозрачный */
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out; /* Плавное появление */
 }
 
 .scroll-container::-webkit-scrollbar-track {
-    background: transparent; /* Фон убираем */
+  background: transparent; /* Фон убираем */
 }
 
 /* Показывать скроллбар только при наведении */
 .scroll-container:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4); /* Чуть ярче при наведении */
+  background-color: rgba(0, 0, 0, 0.4); /* Чуть ярче при наведении */
 }
 
 .copy-text-div {
-    display: inline-block;
-    position: relative;
-    width: fit-content;
-    height: fit-content;
-    cursor: pointer;
-    margin: 0;
-    padding-left: 4px;
-    padding-right: 0px;
-    /* padding-top: 2px; */
-    /* padding-bottom: 2px; */
-    background-color: rgba(110 110, 110, 0.8);
-    border-radius: 4px;
-    transition: background-color 0.15s ease-in-out, padding-right 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  display: inline-block;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+  margin: 0;
+  padding-left: 4px;
+  padding-right: 0px;
+  /* padding-top: 2px; */
+  /* padding-bottom: 2px; */
+  background-color: rgba(110 110, 110, 0.8);
+  border-radius: 4px;
+  transition: background-color 0.15s ease-in-out,
+    padding-right 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-    box-shadow: 2px 2px 8px rgba(30, 30, 30, .3);
+  box-shadow: 2px 2px 8px rgba(30, 30, 30, 0.3);
 }
 
 .copy-text-div:hover {
-    background-color: rgba(170, 170, 170, 0.8);
-    padding-right: 20px;
+  background-color: rgba(170, 170, 170, 0.8);
+  padding-right: 20px;
 
-    box-shadow: 2px 2px 8px rgba(30, 30, 30, 0.8);
+  box-shadow: 2px 2px 8px rgba(30, 30, 30, 0.8);
 }
 
 .copy-icon {
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.15s ease-in-out;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
 }
 
 .copy-text-div:hover .copy-icon {
-    opacity: 1;
+  opacity: 1;
 }
 
 .container-card {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
-    transition: box-shadow 0.15s ease-in-out;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.15s ease-in-out;
 }
 
 .container-card:hover {
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, .2);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .lpu_add_tip {
-    border-radius: 10px;
-    background-color: #3f3f3f;
-    margin-top: 18px;
-    margin-bottom: 18px;
-    padding: 12px;
-    color: #bfbfbf;
+  border-radius: 10px;
+  background-color: #3f3f3f;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  padding: 12px;
+  color: #bfbfbf;
 }
