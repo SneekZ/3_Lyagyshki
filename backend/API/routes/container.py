@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi import APIRouter, HTTPException, UploadFile, File, Cookie
 from pydantic import BaseModel
 import os, uuid, shutil
 
@@ -6,6 +6,7 @@ from backend.DatabaseHandler.DatabaseHandler import DatabaseHandler
 from backend.MariaHandler.MariaHandler import MariaHandler
 from backend.SshHandler.SshHandler import SshHandler
 from backend.SshHandler.SshTransportHandler import SshTransportHandler
+from backend.AsyncLogger.AsyncLogger import log
 
 router = APIRouter()
 
@@ -41,7 +42,8 @@ class ContainerData(BaseModel):
 
 
 @router.post("/{lpu_id}/container/install/container")
-def post_install_sign_by_container_name(lpu_id: int, request: ContainerData) -> dict:
+def post_install_sign_by_container_name(lpu_id: int, request: ContainerData, user: str = Cookie("unknown")) -> dict:
+    
     container_name = request.container_name
 
     dh = DatabaseHandler()
@@ -64,6 +66,10 @@ def post_install_sign_by_container_name(lpu_id: int, request: ContainerData) -> 
     result, ok = ssh.install_sign_by_container_name(container_name)
     if not ok:
         raise HTTPException(status_code=400, detail=result)
+    
+    result_log, ok = log(user, lpu_id, "install sign", result[0], result[1], None)
+    if not ok:
+        raise HTTPException(status_code=400, detail=result_log)
 
     return {
         "snils": result[0],
@@ -71,7 +77,7 @@ def post_install_sign_by_container_name(lpu_id: int, request: ContainerData) -> 
     }
 
 @router.post("/{lpu_id}/container/install/name")
-def post_install_sign(lpu_id: int, request: ContainerData) -> dict:
+def post_install_sign(lpu_id: int, request: ContainerData, user: str = Cookie("unknown")) -> dict:
     container_name = request.container_name
 
     dh = DatabaseHandler()
@@ -94,6 +100,10 @@ def post_install_sign(lpu_id: int, request: ContainerData) -> dict:
     result, ok = ssh.install_sign(container_name)
     if not ok:
         raise HTTPException(status_code=400, detail=result)
+    
+    result_log, ok = log(user, lpu_id, "install sign", result[0], result[1], None)
+    if not ok:
+        raise HTTPException(status_code=400, detail=result_log)
 
     return {
         "snils": result[0],
@@ -101,7 +111,7 @@ def post_install_sign(lpu_id: int, request: ContainerData) -> dict:
     }
 
 @router.post("/{lpu_id}/container/upload")
-async def post_upload_file_on_server(lpu_id: int, file: UploadFile = File(...)):
+async def post_upload_file_on_server(lpu_id: int, user: str = Cookie("unknown"), file: UploadFile = File(...)):
     file_extension = os.path.splitext(file.filename)[-1]
     if file_extension != ".zip":
         raise HTTPException(status_code=400, detail="Принимаются только zip архивы")
@@ -162,6 +172,10 @@ async def post_upload_file_on_server(lpu_id: int, file: UploadFile = File(...)):
     
     if os.path.exists(local_file_path):
         os.remove(local_file_path)
+
+    result, ok = log(user, lpu_id, "upload container on server", None, None, remote_file_path)
+    if not ok:
+        raise HTTPException(status_code=400, detail=result)
 
     return {
         "message": result,

@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Cookie
 from pydantic import BaseModel
 
 from backend.MariaHandler.MariaHandler import MariaHandler
 from backend.DatabaseHandler.DatabaseHandler import DatabaseHandler
+from backend.AsyncLogger.AsyncLogger import log
 
 router = APIRouter()
 
@@ -36,8 +37,12 @@ class PasswordData(BaseModel):
 
 
 @router.post("/{lpu_id}/password/{person_id}")
-def set_password(lpu_id: int, person_id: int, request: PasswordData) -> dict:
+def set_password(lpu_id: int, person_id: int, request: PasswordData, user: str = Cookie("unknown")) -> dict:
     password = request.password
+
+    result, ok = log(user, lpu_id, "password change", None, None, f"id:{person_id}, password:{password}")
+    if not ok:
+        raise HTTPException(status_code=400, detail=result)
 
     dh = DatabaseHandler()
     connection_data, ok = dh.get_lpu(lpu_id)
@@ -57,5 +62,5 @@ def set_password(lpu_id: int, person_id: int, request: PasswordData) -> dict:
         raise HTTPException(status_code=400, detail=msg)
 
     return {
-        "ok": True
+        "data": True
     }

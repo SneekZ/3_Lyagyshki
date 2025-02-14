@@ -5,7 +5,13 @@ from sqlalchemy.orm import sessionmaker
 import backend.DatabaseHandler.settings as settings
 
 
-engine = create_engine(settings.DATABASE_ENGINE_PATH)
+engine = create_engine(
+                        settings.DATABASE_ENGINE_PATH,
+                        pool_size=10,
+                        max_overflow=20,
+                        pool_timeout=60,
+                        pool_recycle=1800
+                    )
 
 Base = declarative_base()
 

@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Cookie, Request
 from pydantic import BaseModel
 
 from backend.DatabaseHandler.DatabaseHandler import DatabaseHandler
 from backend.MariaHandler.MariaHandler import MariaHandler
 from backend.SshHandler.SshHandler import SshHandler
+from backend.AsyncLogger.AsyncLogger import log
 
 router = APIRouter()
 
@@ -133,8 +134,12 @@ class ShaData(BaseModel):
 
 
 @router.delete("/{lpu_id}/signs/delete")
-def delete_sign(lpu_id: int, request: ShaData) -> dict:
+def delete_sign(lpu_id: int, request: ShaData, user: str = Cookie("unknown")) -> dict:
     sha = request.sha
+
+    result, ok = log(user, lpu_id, "delete sign", None, sha, None)
+    if not ok:
+        raise HTTPException(status_code=400, detail=result)
 
     dh = DatabaseHandler()
     connection_data, ok = dh.get_lpu(lpu_id)

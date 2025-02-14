@@ -1,8 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
-import NotFound from './components/NotFound/NotFound.jsx'
-import Signs from './components/signs/Signs.jsx'
-import Database from './components/database/Database.jsx'
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  Navigate,
+} from "react-router-dom";
+import NotFound from "./components/NotFound/NotFound.jsx";
+import Signs from "./components/signs/Signs.jsx";
+import Database from "./components/database/Database.jsx";
+import Login from "./components/login/Login.jsx";
 
 // Компоненты для разных страниц
 const App = () => {

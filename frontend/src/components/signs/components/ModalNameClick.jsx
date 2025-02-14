@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, Popconfirm, Flex, ConfigProvider, theme } from 'antd';
-import api from '../../../axios_config';
-import CopyTextField from '../../Utils/CopyField';
-import useMessage from 'antd/es/message/useMessage';
+import React, { useState, useEffect } from "react";
+import { Button, Modal, Popconfirm, Flex, ConfigProvider, theme } from "antd";
+import api from "../../../axios_config";
+import CopyTextField from "../../Utils/CopyField";
+import useMessage from "antd/es/message/useMessage";
+import ChangePasswordModal from "./ModalNameClick/ChangePasswordModal";
 
 const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
   const showMessage = useMessage();
@@ -15,6 +16,7 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
   const [result, setResult] = useState("");
   const [password, setPassword] = useState("");
   const [ids, setIds] = useState("");
+  const [idsList, setIdsList] = useState([]);
 
   const [popupOpen, setPopupOpen] = useState(false);
 
@@ -28,9 +30,9 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
 
       return () => {
         controller.abort();
-      }
-    } 
-  }, [modalOpen])
+      };
+    }
+  }, [modalOpen]);
 
   useEffect(() => {
     if (loadingCheck || loadingFind) {
@@ -38,83 +40,93 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
     } else {
       setLoading(false);
     }
-  }, [loadingCheck, loadingFind])
+  }, [loadingCheck, loadingFind]);
 
   const check = async (signal) => {
     setLoadingCheck(true);
     try {
-          const response = await api.get(`/${activeSign.lpu_id}/signs/check/snils/${activeSign.snils}`, { signal })
-          if (response.data.ok) {
-              setResult("Работает")
-              setPassword(response.data.data)
-          } else {
-              setResult(response.data.data)
-          }
-      } catch (error) {
-        if (error.response) {
-            showMessage(error.response.data.detail)
-        } else if (error.request) {
-            showMessage("Ошибка сети. Проверьте подключение к интернету")
-        } else {
-            showMessage("Неизвестная ошибка: " + error.message)
-        }
-      } finally {
-        setLoadingCheck(false);
+      const response = await api.get(
+        `/${activeSign.lpu_id}/signs/check/snils/${activeSign.snils}`,
+        { signal }
+      );
+      if (response.data.ok) {
+        setResult("Работает");
+        setPassword(response.data.data);
+      } else {
+        setResult(response.data.data);
       }
-  }
+    } catch (error) {
+      if (error.response) {
+        showMessage(error.response.data.detail);
+      } else if (error.request) {
+        showMessage("Ошибка сети. Проверьте подключение к интернету");
+      } else {
+        showMessage("Неизвестная ошибка: " + error.message);
+      }
+    } finally {
+      setLoadingCheck(false);
+    }
+  };
 
   const findIds = async (signal) => {
     setLoadingFind(true);
     try {
-      const response = await api.get(`/${activeSign.lpu_id}/persons/snils/${activeSign.snils}`, { signal });
+      const response = await api.get(
+        `/${activeSign.lpu_id}/persons/snils/${activeSign.snils}`,
+        { signal }
+      );
       if (response.data.data) {
-        setIds(response.data.data.join(", "))
+        setIdsList(response.data.data);
+        setIds(response.data.data.join(", "));
       }
     } catch (error) {
       if (error.response) {
-        showMessage(error.response.data.detail)
+        showMessage(error.response.data.detail);
       } else if (error.request) {
-        showMessage("Ошибка сети. Проверьте подключение к интернету")
+        showMessage("Ошибка сети. Проверьте подключение к интернету");
       } else {
-        showMessage("Неизвестная ошибка: " + error.message)
+        showMessage("Неизвестная ошибка: " + error.message);
       }
     } finally {
       setLoadingFind(false);
     }
-  }
+  };
 
   const handleDelete = () => {
-    setLoadingDelete(true)
-    setPopupOpen(false)
+    setLoadingDelete(true);
+    setPopupOpen(false);
     const del = async () => {
-        try {
-            const response = await api.delete(`/${activeSign.lpu_id}/signs/delete`, {
-                data: {
-                    sha: activeSign.sha
-                }
-            })
-            setResult("Подпись удалена успешно")
-        } catch (error) {
-          if (error.response) {
-              showMessage(error.response.data.detail)
-          } else if (error.request) {
-              showMessage("Ошибка сети. Проверьте подключение к интернету")
-          } else {
-              showMessage("Неизвестная ошибка: " + error.message)
+      try {
+        const response = await api.delete(
+          `/${activeSign.lpu_id}/signs/delete`,
+          {
+            data: {
+              sha: activeSign.sha,
+            },
           }
-      } finally {
-            setLoadingDelete(false)
+        );
+        setResult("Подпись удалена успешно");
+      } catch (error) {
+        if (error.response) {
+          showMessage(error.response.data.detail);
+        } else if (error.request) {
+          showMessage("Ошибка сети. Проверьте подключение к интернету");
+        } else {
+          showMessage("Неизвестная ошибка: " + error.message);
         }
-    }
-    del()
-  }
+      } finally {
+        setLoadingDelete(false);
+      }
+    };
+    del();
+  };
 
   const handleClose = () => {
-    setResult("")
-    setPassword("")
-    setIds("")
-    setModalOpen(false)
-  }
+    setResult("");
+    setPassword("");
+    setIds("");
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -129,52 +141,105 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
           title={activeSign.name}
           onCancel={handleClose}
           footer={[
-              <Button type="primary" onClick={() => {
+            <Button
+              type="primary"
+              onClick={() => {
                 check();
                 findIds();
-              }}>
-                Проверить подпись
-              </Button>,
-              <Popconfirm
-                title="Удаление подписи"
-                description="Точно удаляем?"
-                open={popupOpen}
-                onConfirm={handleDelete}
-                onCancel={() => { setPopupOpen(false) }}
-                okText="Да"
-                cancelText="Нет"
+              }}
+            >
+              Проверить подпись
+            </Button>,
+            <Popconfirm
+              title="Удаление подписи"
+              description="Точно удаляем?"
+              open={popupOpen}
+              onConfirm={handleDelete}
+              onCancel={() => {
+                setPopupOpen(false);
+              }}
+              okText="Да"
+              cancelText="Нет"
+            >
+              <Button
+                type="primary"
+                loading={loadingDelete}
+                danger
+                onClick={() => {
+                  setPopupOpen(true);
+                }}
               >
-                <Button type="primary" loading={loadingDelete} danger onClick={() => { setPopupOpen(true) }}>
-                    Удалить подпись
-                </Button>
-              </Popconfirm>,
-              <Button type="default" onClick={handleClose}>
-                  Назад
-              </Button>,
+                Удалить подпись
+              </Button>
+            </Popconfirm>,
+            <Button type="default" onClick={handleClose}>
+              Назад
+            </Button>,
           ]}
         >
-          <br/>
+          <br />
           <Flex vertical="true" gap="14px">
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "2px",
+              }}
+            >
               <span>ID в бд: </span>
-              <CopyTextField inputText={ids}/>
+              <CopyTextField inputText={ids} />
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "2px",
+              }}
+            >
               <span>СНИЛС: </span>
-              <CopyTextField inputText={activeSign.snils}/>
+              <CopyTextField inputText={activeSign.snils} />
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "2px",
+              }}
+            >
               <span>SHA Отпечаток: </span>
-              <CopyTextField inputText={activeSign.sha}/>
+              <CopyTextField inputText={activeSign.sha} />
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
-              <span style={{display: "flex", alignItems: "center"}}>Результат: {result}</span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "2px",
+              }}
+            >
+              <span style={{ display: "flex", alignItems: "center" }}>
+                Результат: {result}
+              </span>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "2px",
+              }}
+            >
               <span>Пароль: </span>
-              <CopyTextField inputText={password}/>
+              <CopyTextField inputText={password} />
+              {/* <ChangePasswordModal
+                lpuId={activeSign.lpu_id}
+                idsList={idsList}
+              /> */}
             </div>
-            <div style={{ marginTop: "8px" }}/>
+            <div style={{ marginTop: "8px" }} />
           </Flex>
         </Modal>
       </ConfigProvider>

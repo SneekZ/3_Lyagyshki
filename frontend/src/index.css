@@ -142,7 +142,7 @@ body {
   font-family: "Dela Gothic One", sans-serif;
   font-weight: 400;
   font-style: normal;
-      display: flex;
+  display: flex;
   justify-content: center; /* Горизонтальное центрирование */
   align-items: center; /* Вертикальное центрирование */
   color: var(--primary-text);

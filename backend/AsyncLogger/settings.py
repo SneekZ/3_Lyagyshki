@@ -1,0 +1,1 @@
+PATH = 'C:/Users/user/PycharmProjects/updated_logic/backend/DatabaseHandler/database/database.db'
