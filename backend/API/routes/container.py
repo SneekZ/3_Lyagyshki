@@ -6,7 +6,7 @@ from backend.DatabaseHandler.DatabaseHandler import DatabaseHandler
 from backend.MariaHandler.MariaHandler import MariaHandler
 from backend.SshHandler.SshHandler import SshHandler
 from backend.SshHandler.SshTransportHandler import SshTransportHandler
-from backend.AsyncLogger.AsyncLogger import log
+from backend.AsyncLogger.AsyncLogger import log, write_to_log
 
 router = APIRouter()
 
@@ -173,9 +173,7 @@ async def post_upload_file_on_server(lpu_id: int, user: str = Cookie("unknown"),
     if os.path.exists(local_file_path):
         os.remove(local_file_path)
 
-    result, ok = log(user, lpu_id, "upload container on server", None, None, remote_file_path)
-    if not ok:
-        raise HTTPException(status_code=400, detail=result)
+    await write_to_log(user, lpu_id, "upload container on server", None, None, remote_file_path)
 
     return {
         "message": result,

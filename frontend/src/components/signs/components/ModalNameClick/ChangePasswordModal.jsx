@@ -19,7 +19,7 @@ const ChangePasswordModal = ({ lpuId, idsList }) => {
       </Button>
       <Modal
         open={openModal}
-        title="Смена пароля для ецп в бд"
+        title="Смена пароля для ЭЦП в бд"
         onOk={handleOk}
         onCancel={() => setOpenModal(false)}
       >
