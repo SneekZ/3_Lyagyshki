@@ -20,7 +20,7 @@ const CopyTextField = ({ inputText }) => {
       <CopyToClipboard text={inputText}>
         <div className="copy-text-div" onClick={showMessageCopied}>
           <span style={{ marginRight: "6px" }}>{inputText}</span>
-          <span class="copy-icon">📋</span>
+          <span className="copy-icon">📋</span>
         </div>
       </CopyToClipboard>
     </>

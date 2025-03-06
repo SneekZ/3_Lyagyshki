@@ -1,4 +1,3 @@
-import paramiko
 from paramiko.ssh_exception import AuthenticationException, SSHException, NoValidConnectionsError
 import logging
 import os
@@ -248,12 +247,20 @@ class SshHandler(SshHandlerBaseClass):
 
         return "OK", True
 
+    def container_list(self):
+        command = "/opt/cprocsp/bin/amd64/csptest -keyset -enum_cont -fqcn -verifyc -uniq"
+        out, ok = self._exec_command(command)
+        if not ok:
+            return f"Ошибка: {out}"
+        return out
+
+
+
 if __name__ == "__main__":
     from backend.DatabaseHandler.DatabaseHandler import DatabaseHandler
     dh = DatabaseHandler()
     data, _ = dh.get_lpu(13)
     ssh = SshHandler(data)
     ssh.connect()
-    print(ssh.find_sign_password(19964531029))
 
 

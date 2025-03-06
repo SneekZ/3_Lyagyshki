@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table, Tag, ConfigProvider, theme} from "antd";
-import { createStyles } from 'antd-style'
+import { Button, Input, Space, Table, Tag, ConfigProvider, theme } from "antd";
+import { createStyles } from "antd-style";
 
-
-const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
+const SignsTable = ({ signs, setModalOpen, setActiveSign }) => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
 
@@ -13,10 +12,10 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
       lpu_id: lpu_id,
       name: name,
       snils: snils,
-      sha: sha
-    }    
-    setActiveSign(activeSign)
-    setModalOpen(true)
+      sha: sha,
+    };
+    setActiveSign(activeSign);
+    setModalOpen(true);
   }
 
   const searchInput = useRef(null);
@@ -56,19 +55,19 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             marginBottom: 8,
             display: "block",
             color: "#000000",
-            backgroundColor: "#ffffff"
+            backgroundColor: "#ffffff",
           }}
         />
         <Space>
           <Button
             onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined color="#ffffff"/>}
+            icon={<SearchOutlined color="#ffffff" />}
             size="small"
             style={{
               width: 90,
               color: "#ffffff",
-              backgroundColor: "#2a2b32",
-              borderColor: "#888888"
+              backgroundColor: "#2a2a2a",
+              borderColor: "#888888",
             }}
           >
             Search
@@ -79,8 +78,8 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             style={{
               width: 90,
               color: "#ffffff",
-              backgroundColor: "#2a2b32",
-              borderColor: "#888888"
+              backgroundColor: "#2a2a2a",
+              borderColor: "#888888",
             }}
           >
             Reset
@@ -97,7 +96,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             }}
             style={{
               color: "#ffffff",
-              backgroundColor: "#2a2b32"
+              backgroundColor: "#2a2a2a",
             }}
           >
             Filter
@@ -110,7 +109,7 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
             }}
             style={{
               color: "#ffffff",
-              backgroundColor: "#2a2b32"
+              backgroundColor: "#2a2a2a",
             }}
           >
             close
@@ -160,7 +159,14 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
       key: "name",
       width: "25%",
       render: (_, { name, snils, lpu_id, sha }) => {
-        return <a style={{ color: "#9999ff" }} onClick={() => handleNameClick(lpu_id, name, snils, sha)}>{name}</a>;
+        return (
+          <a
+            style={{ color: "#9999ff" }}
+            onClick={() => handleNameClick(lpu_id, name, snils, sha)}
+          >
+            {name}
+          </a>
+        );
       },
       ...getColumnSearchProps("name"),
     },
@@ -183,7 +189,11 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
           return;
         }
         return (
-          <Tag color={color} key={expired_text} style={{ colorText: "#000000" }}>
+          <Tag
+            color={color}
+            key={expired_text}
+            style={{ colorText: "#000000" }}
+          >
             {expired_text.toUpperCase()}
           </Tag>
         );
@@ -219,23 +229,23 @@ const SignsTable = ( {signs, setModalOpen, setActiveSign } ) => {
   ];
   return (
     <div>
-      <br/>
+      <br />
       <ConfigProvider
         theme={{
           token: {
-            colorBgContainer: "#2a2b32",
+            colorBgContainer: "#2a2a2a",
             colorText: "#ffffff",
-            colorBgBase: "#2a2b32",
-            colorBorderSecondary: "#2a2b32",
-          }
+            colorBgBase: "#2a2a2a",
+            colorBorderSecondary: "#2a2a2a",
+          },
         }}
       >
         <Table
           className={styles.customTable}
           columns={columns}
           dataSource={signs || [{}]}
-          pagination={{ pageSize: 5000, position: ['none', 'none'] }}
-          scroll={{ 
+          pagination={{ pageSize: 5000, position: ["none", "none"] }}
+          scroll={{
             x: "max-content",
             y: 55 * 10,
           }}

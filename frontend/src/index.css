@@ -11,7 +11,7 @@
   --secondary-text: #9ca3af; /* Вторичный текст */
   --accent-color: #10a37f; /* Акцентный цвет */
   --border-color: #4b5563; /* Цвет границ */
-  --hover-bg: #2a2b32; /* Цвет для ховера */
+  --hover-bg: #2a2a2a; /* Цвет для ховера */
 }
 
 html,
@@ -74,7 +74,7 @@ body {
   flex: 1; /* Эта часть будет занимать оставшееся пространство */
   overflow: auto; /* Добавьте, если нужно скроллирование внутри */
   border-radius: 20px;
-  background: #2a2b32;
+  background: #2a2a2a;
 }
 
 .content_pretty {
@@ -255,8 +255,6 @@ body {
   margin: 0;
   padding-left: 4px;
   padding-right: 0px;
-  /* padding-top: 2px; */
-  /* padding-bottom: 2px; */
   background-color: rgba(110 110, 110, 0.8);
   border-radius: 4px;
   transition: background-color 0.15s ease-in-out,
