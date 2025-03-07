@@ -234,11 +234,12 @@ const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
             >
               <span>Пароль: </span>
               <CopyTextField inputText={password} />
-              {/* <ChangePasswordModal
-                lpuId={activeSign.lpu_id}
-                idsList={idsList}
-              /> */}
             </div>
+            <ChangePasswordModal
+              className="default_button"
+              lpuId={activeSign.lpu_id}
+              idsList={idsList}
+            />
             <div style={{ marginTop: "8px" }} />
           </Flex>
         </Modal>

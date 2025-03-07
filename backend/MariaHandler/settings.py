@@ -1,4 +1,5 @@
 DATABASE_ENGINE = 'mariadb+mariadbconnector://'
+ASYNC_DATABASE_ENGINE = 'mariadb+asyncmy://'
 
 CHECK_ERRORS = {
     "id": "В данных не хватает id",

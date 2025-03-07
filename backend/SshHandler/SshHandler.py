@@ -167,8 +167,8 @@ class SshHandler(SshHandlerBaseClass):
             content_utf8 = content.decode('utf-8', errors="ignore")
             content_cp1251= content.decode('cp1251', errors="ignore")
 
-            match_utf8 = re.match(r'[a-zA-Z0-9\s\-_]+', content_utf8[::-1])
-            match_cp1251= re.match(r'[а-яА-Я0-9\s\-_]+', content_cp1251[::-1])
+            match_utf8 = re.match(r'[a-zA-Z0-9\s\-_\.]+', content_utf8[::-1])
+            match_cp1251= re.match(r'[а-яА-Я0-9\s\-_\.]+', content_cp1251[::-1])
 
             if not match_utf8 and not match_cp1251:
                 return "Название контейнера не было найдено", False
