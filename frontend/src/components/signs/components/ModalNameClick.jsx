@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, Popconfirm, Flex, ConfigProvider, theme } from "antd";
 import api from "../../../axios_config";
 import CopyTextField from "../../Utils/CopyField";
-import useMessage from "antd/es/message/useMessage";
+import { useMessage } from "../../Utils/MessageContext";
 import ChangePasswordModal from "./ModalNameClick/ChangePasswordModal";
 
 const ModalNameClick = ({ modalOpen, setModalOpen, activeSign }) => {
